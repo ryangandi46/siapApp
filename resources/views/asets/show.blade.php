@@ -1,4 +1,4 @@
-@extends('asets.layout')
+@extends('templateLayout')
 
 @section('content')
     <div class="row">

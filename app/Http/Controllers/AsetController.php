@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use Dataatables;
 use App\Models\Aset;
 use Illuminate\Http\Request;
+use Yajra\DataTables\Facades\DataTables;
 
 class AsetController extends Controller
 {
@@ -12,11 +14,38 @@ class AsetController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $aset = Aset::latest()->paginate(10);
+        // $aset = Aset::latest()->paginate(10);
+        $aset = Aset::all();
+        if ($request->ajax()) {
+            return datatables()->of($aset)
+                ->addColumn('action', function ($data) {
+                    $urlShow = route('aset.show', $data->id); // Replace with your actual show route
+                    $urlEdit = route('aset.edit', $data->id); // Replace with your actual edit route
+                    $urlDelete = route('aset.destroy', $data->id); // Replace with your actual delete route
 
-        return view('asets.index', compact('aset'))->with(request()->input('page'));
+                   
+                    $button = '<a href="' . $urlShow . '" class="detail btn btn-primary btn-sm"><i class="far fa-eye"></i></a>';
+                    $button .= '&nbsp;&nbsp;';
+                    $button .= '<a href="' . $urlEdit . '" class="edit btn btn-info btn-sm"><i class="far fa-edit"></i></a>';
+                    $button .= '&nbsp;&nbsp;';
+                    $button .= '<form action="' . $urlDelete . '" method="POST" style="display:inline-block">';
+                    $button .= csrf_field();
+                    $button .= method_field('DELETE'); // Add method field for DELETE request
+                    $button .= '<button type="submit" class="delete btn btn-danger btn-sm"><i class="far fa-trash-alt"></i></button>';
+                    $button .= '</form>';
+                    return '<div class="text-center">' . $button . '</div>';
+                })
+                ->rawColumns(['action'])
+                ->addIndexColumn()
+                ->make(true);
+        }
+
+
+        // return view('asets.index', compact('aset'))->with(request()->input('page'));
+        return view('asets.table');
+        // return response()->json($aset);
     }
 
     /**
@@ -53,9 +82,29 @@ class AsetController extends Controller
 
         //create a new product in the database
         Aset::create($request->all());
-        
+
         // redirect the user and send friendly message
-        return redirect()->route('aset.index')->with('success','Asets Created Succressfully');
+        return redirect()->route('aset.index')->with('success', 'Asets Created Succressfully');
+
+        // $id = $request->id;
+
+        // $post   =   Aset::updateOrCreate(
+        //     ['id' => $id],
+        //     [
+        //         'nama_aset' => $request->nama_aset,
+        //         'jenis_aset' => $request->jenis_aset,
+        //         'merek' => $request->merek,
+        //         'model' => $request->model,
+        //         'nomor_seri' => $request->nomor_seri,
+        //         'kondisi' => $request->kondisi,
+        //         'lokasi' => $request->lokasi,
+        //         'tanggal_pembelian' => $request->tanggal_pemebelian,
+        //         'harga_pembelian' => $request->harga_pembelian,
+        //         'keterangan' => $request->keterangan,
+        //     ]
+        // );
+
+        // return response()->json($post);
     }
 
     /**
@@ -89,8 +138,8 @@ class AsetController extends Controller
      */
     public function update(Request $request, Aset $aset)
     {
-         //validate the input
-         $request->validate([
+        //validate the input
+        $request->validate([
             'nama_aset' => 'required',
             'jenis_aset' => 'required',
             'merek' => 'required',
@@ -105,9 +154,9 @@ class AsetController extends Controller
 
         //update a  product in the database
         $aset->update($request->all());
-        
+
         // redirect the user and send friendly message
-        return redirect()->route('aset.index')->with('success','Asets Updated Succressfully');
+        return redirect()->route('aset.index')->with('success', 'Asets Updated Succressfully');
     }
 
     /**
@@ -123,7 +172,6 @@ class AsetController extends Controller
 
 
         //redirect the user adn display succes message
-        return redirect()->route('aset.index')->with('success','Asets Deleted Succressfully');
-
+        return redirect()->route('aset.index')->with('success', 'Asets Deleted Succressfully');
     }
 }

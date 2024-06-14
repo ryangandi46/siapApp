@@ -1,7 +1,7 @@
-@extends('asets.layout')
+@extends('templateLayout')
+{{-- @include('template.headTable') --}}
 
 @section('content')
-
     <div class="row">
         <div class="col-lg-12">
             <div class="pull-left">
@@ -27,24 +27,25 @@
             <th width="280px">Action</th>
         </tr>
         @foreach ($aset as $as)
-        <tr>
-            <td>{{ $as->id }}</td>
-            <td>{{ $as->nama_aset }}</td>
-            <td>{{ $as->jenis_aset }}</td>
-            <td>
-                <form action="{{ route('aset.destroy',$as->id) }}" method="POST">
-                    <a class="btn btn-info" href="{{ route('aset.show',$as->id) }}">Show</a>
-                    <a class="btn btn-primary" href="{{ route('aset.edit',$as->id) }}">Edit</a>
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" class="btn btn-danger">Delete</button>
-                </form>
-            </td>
-        </tr>
+            <tr>
+                <td>{{ $as->id }}</td>
+                <td>{{ $as->nama_aset }}</td>
+                <td>{{ $as->jenis_aset }}</td>
+                <td>
+                    <form action="{{ route('aset.destroy', $as->id) }}" method="POST">
+                        <a class="btn btn-info" href="{{ route('aset.show', $as->id) }}">Show</a>
+                        <a class="btn btn-primary" href="{{ route('aset.edit', $as->id) }}">Edit</a>
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                </td>
+            </tr>
         @endforeach
 
     </table>
+
     {{ $aset->links() }}
 
-
 @endsection
+{{-- @include('template.scriptTable') --}}
