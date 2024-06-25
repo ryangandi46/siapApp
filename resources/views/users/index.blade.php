@@ -9,16 +9,16 @@
         </div>
         <div class="card-body">
             <!-- MULAI TOMBOL TAMBAH -->
-            <a class="btn btn-info" id="tombol-tambah" href="{{ route('aset.create') }}">Tambah Aset</a>
+            <a class="btn btn-info" id="tombol-tambah" href="{{ route('user.create') }}">Tambah User</a>
             <br><br>
             <!-- AKHIR TOMBOL -->
             <div class="table-responsive">
-                <table id="table_aset" class="table table-bordered" width="100%" cellspacing="0">
+                <table id="table_user" class="table table-bordered" width="100%" cellspacing="0">
                     <thead>
                         <tr>
-                            <th>id</th>
-                            <th>Nama Aset</th>
-                            <th>Jenis Aset</th>
+                            <th>No</th>
+                            <th>Nama</th>
+                            <th>Email</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
@@ -41,13 +41,13 @@
         // new DataTable('#table_aset');
         $(document).ready(function() {
             //id dari table diatas
-            $('#table_aset').DataTable({
+            $('#table_user').DataTable({
                 processing: true,
                 //untuk mengaktifkan datatables serverside
                 serverSide: true,
                 ajax: {
                     //route yang diambol dari controller
-                    url: "{{ route('aset.index') }}",
+                    url: "{{ route('user.index') }}",
                     type: 'GET'
                 },
                 //columns data yang akan ditampilkan
@@ -59,12 +59,12 @@
                         }
                     },
                     {
-                        data: 'nama_aset',
-                        name: 'nama_aset'
+                        data: 'name',
+                        name: 'name'
                     },
                     {
-                        data: 'jenis_aset',
-                        name: 'jenis_aset'
+                        data: 'email',
+                        name: 'email'
                     },
                     {
                         data: 'action',
@@ -74,6 +74,7 @@
                 order: [
                     [0, 'asc'] // dimulai dari dan pilih type urutan data asc/desc
                 ]
+                
             });
         });
     </script>

@@ -1,77 +1,51 @@
 @extends('templateLayout')
-
-@extends('template.headTable')
+{{-- @include('template.headTable') --}}
 
 @section('content')
-    <div class="card shadow mb-4">
-        <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Inventaris Aset</h6>
-        </div>
-        <div class="card-body">
-            <!-- MULAI TOMBOL TAMBAH -->
-            <a class="btn btn-info" id="tombol-tambah" href="{{ route('aset.create') }}">Tambah Aset</a>
-            <br><br>
-            <!-- AKHIR TOMBOL -->
-            <div class="table-responsive">
-                <table id="table_aset" class="table table-bordered" width="100%" cellspacing="0">
-                    <thead>
-                        <tr>
-                            <th>id</th>
-                            <th>Nama Aset</th>
-                            <th>Jenis Aset</th>
-                            <th>Aksi</th>
-                        </tr>
-                    </thead>
-                    <tfoot>
-                        <tr>
-                            {{-- <th>id</th> --}}
-                            {{-- <th>NAma Aset</th>
-                                <th>Jenis Aset</th> --}}
-                        </tr>
-                    </tfoot>
-
-                </table>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="pull-left">
+                <h2>Sistem Inventaris Aset Sekolah</h2>
+            </div>
+            <div class="pull-right">
+                <a class="btn btn-success" href="{{ route('aset.create') }}"> Create New Product</a>
             </div>
         </div>
     </div>
 
-    @extends('template.scriptTable')
+    @if ($message = Session::get('success'))
+        <div class="alert alert-success">
+            <p>{{ $message }}</p>
+        </div>
+    @endif
 
-    <script>
-        // new DataTable('#table_aset');
-        $(document).ready(function() {
-            //id dari table diatas
-           $('#table_aset').DataTable({
-                processing: true,
-                //untuk mengaktifkan datatables serverside
-                serverSide: true,
-                ajax: {
-                    //route yang diambol dari controller
-                    url: "{{ route('aset.index') }}",
-                    type: 'GET'
-                },
-                //columns data yang akan ditampilkan
-                columns: [{
-                        data: 'id', // diambil dari database
-                        name: 'id'
-                    },
-                    {
-                        data: 'nama_aset',
-                        name: 'nama_aset'
-                    },
-                    {
-                        data: 'jenis_aset',
-                        name: 'jenis_aset'
-                    },
-                    {
-                        data: 'action',
-                        name: 'action'
-                    },
-                ],
-                order: [
-                    [0, 'asc'] // dimulai dari dan pilih type urutan data asc/desc
-                ]              
-            });
-        });
-    </script>
+    <table class="table table-bordered">
+        <tr>
+            <th>ID</th>
+            <th>Nama</th>
+            <th>Jenis Aset</th>
+            <th width="280px">Action</th>
+        </tr>
+        @foreach ($aset as $as)
+            <tr>
+                <td>{{ $as->id }}</td>
+                <td>{{ $as->nama_aset }}</td>
+                <td>{{ $as->jenis_aset }}</td>
+                <td>
+                    <form action="{{ route('aset.destroy', $as->id) }}" method="POST">
+                        <a class="btn btn-info" href="{{ route('aset.show', $as->id) }}">Show</a>
+                        <a class="btn btn-primary" href="{{ route('aset.edit', $as->id) }}">Edit</a>
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        @endforeach
+
+    </table>
+
+    {{ $aset->links() }}
+
 @endsection
+{{-- @include('template.scriptTable') --}}

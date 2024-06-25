@@ -13,14 +13,14 @@
 
     <!-- Nav Item - Dashboard -->
     <li class="nav-item">
-        <a class="nav-link" href="index.html">
-            <i class="fas fa-fw fa-tachometer-alt"></i>
+        <a class="nav-link" href="{{ route('dashboard.index') }}">
+            <i class="fas fa-home"></i>
             <span>Dashboard</span></a>
     </li>
 
     <!-- Divider -->
     <hr class="sidebar-divider">
-    
+
     <!-- Heading -->
     <div class="sidebar-heading">
         Manajemen Asets
@@ -29,34 +29,49 @@
     <!-- Nav Item - List Aset -->
     <li class="nav-item">
         <a class="nav-link" href="{{ route('aset.index') }}">
-            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <i class="fas fa-book"></i>
             <span>List Aset</span></a>
     </li>
 
     <!-- Nav Transaksi Aset -->
     <li class="nav-item">
         <a class="nav-link" href="">
-            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <i class="fas fa-clipboard-list"></i>
             <span>Transaction</span></a>
     </li>
 
     <!-- Nav Item - List Aset -->
     <li class="nav-item">
         <a class="nav-link" href="">
-            <i class="fas fa-fw fa-tachometer-alt"></i>
+
+            <i class="fas fa-poll"></i>
             <span>Report</span></a>
     </li>
 
     <!-- Nav Item - List Aset -->
     <li class="nav-item">
-        <a class="nav-link" href="">
-            <i class="fas fa-fw fa-tachometer-alt"></i>
+        <a class="nav-link" href="{{ route('user.index') }}">
+            <i class="fas fa-users"></i>
             <span>Users</span></a>
     </li>
-    
+    <!-- Nav Item - List Aset -->
+    <li class="nav-item">
+        {{-- <a class="nav-link" href="/logout" type="submit">
+            <i class="	fas fa-door-open"></i>
+            <span>Logout</span></a> --}}
+        
+        <form action="/logout" method="POST">
+            @csrf
+            
+                <button type="submit" class="btn btn-primary" style="border: none; background-color:;"><i class="	fas fa-door-open" >Logout</i></button>            
+           
+             {{-- <input type="submit" value="Logout" class=""><i class="fas fa-door-open"></i>  --}}
+        </form>
+    </li>
 
 
-    <!-- Nav Item - Pages Collapse Menu -->
+
+    {{-- <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
             aria-expanded="true" aria-controls="collapseTwo">
@@ -88,12 +103,12 @@
                 <a class="collapse-item" href="utilities-other.html">Other</a>
             </div>
         </div>
-    </li>
+    </li> --}}
 
     <!-- Divider -->
     <hr class="sidebar-divider">
 
-    <!-- Heading -->
+    {{-- <!-- Heading -->
     <div class="sidebar-heading">
         Addons
     </div>
@@ -131,10 +146,10 @@
         <a class="nav-link" href="tables.html">
             <i class="fas fa-fw fa-table"></i>
             <span>Tables</span></a>
-    </li>
+    </li> --}}
 
-    <!-- Divider -->
-    <hr class="sidebar-divider d-none d-md-block">
+    {{-- <!-- Divider -->
+    <hr class="sidebar-divider d-none d-md-block"> --}}
 
     <!-- Sidebar Toggler (Sidebar) -->
     <div class="text-center d-none d-md-inline">

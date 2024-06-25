@@ -44,7 +44,7 @@ class AsetController extends Controller
 
 
         // return view('asets.index', compact('aset'))->with(request()->input('page'));
-        return view('asets.table');
+        return view('asets.index');
         // return response()->json($aset);
     }
 

@@ -1,7 +1,12 @@
 <?php
 
-use App\Http\Controllers\AsetController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AsetController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\DashboardController;
+use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,8 +20,18 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('dashboard');
 });
 
-Route::resource('aset', AsetController::class);
+
+
+Route::resource('aset', AsetController::class)->middleware('auth');
+Route::resource('login', LoginController::class);
+Route::resource('register', RegisterController::class)->middleware('guest');
+Route::resource('dashboard', DashboardController::class)->middleware('auth'); //tambahakan middleware supaya tidak dapat mengakses url dan harus login terlebih dahulu
+Route::resource('user', UserController::class)->middleware('auth'); //tambahakan middleware supaya tidak dapat mengakses url dan harus login terlebih dahulu
+
+Route::get('/login', [LoginController::class, 'index'])->name('login')->middleware('guest');
+Route::post('/login', [LoginController::class, 'authenticate']);
+Route::post('/logout', [LoginController::class, 'logout']);
 
