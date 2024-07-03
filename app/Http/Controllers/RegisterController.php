@@ -20,6 +20,7 @@ class RegisterController extends Controller
             'name' => 'required|max:255',
             'email' => 'required|email:dns|unique:users',
             'password' => 'required|min:5|max:255'
+         
         ]);
 
         // $validatedData['passsword'] = bcrypt($validatedData['password']);
@@ -28,6 +29,6 @@ class RegisterController extends Controller
         //create a new user
         User::create($validatedData);
         
-        return redirect()->route('login.index')->with('success', 'Registration successfull! Pleasse Login');
+        return redirect()->route('login')->with('success', 'Registration successfull! Pleasse Login');
     }
 }

@@ -103,7 +103,7 @@ class UserController extends Controller
         $request->validate([
             'name' => 'required',
             'email' => 'required',            
-            'password' => 'required'
+            'password' => ''
         ]);
 
         //update a  product in the database

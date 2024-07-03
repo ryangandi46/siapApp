@@ -12,6 +12,7 @@
         </div>
     </div>
 
+    <br>
     @if ($errors->any())
         <div class="alert alert-danger">
             <strong>Whoops!</strong> There were some problems with your input.<br><br>
@@ -36,34 +37,11 @@
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
-                    <strong>Jenis Aset:</strong>
-                    <input type="text" name="jenis_aset" value="{{ $aset->jenis_aset }}" class="form-control" placeholder="Jenis Aaset">
-                </div>
-            </div>
-            <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group">
-                    <strong>Merek:</strong>
+                    <strong>Spesifikasi:</strong>
                     <input type="text" name="merek" value="{{ $aset->merek }}" class="form-control" placeholder="Merek">
                 </div>
             </div>
-            <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group">
-                    <strong>Model:</strong>
-                    <input type="text" name="model" value="{{ $aset->model }}" class="form-control" placeholder="Model">
-                </div>
-            </div>
-            <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group">
-                    <strong>Nomor Seri:</strong>
-                    <input type="text" name="nomor_seri" value="{{ $aset->nomor_seri }}" class="form-control" placeholder="Nomor Seri">
-                </div>
-            </div>
-            <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group">
-                    <strong>Kondisi:</strong>
-                    <input type="text" name="kondisi" value="{{ $aset->kondisi }}" class="form-control" placeholder="Kondisi">
-                </div>
-            </div>
+
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
                     <strong>Lokasi:</strong>
@@ -72,7 +50,13 @@
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
-                    <strong>tanggal Pembelian:</strong>
+                    <strong>Jumlah Satuan:</strong>
+                    <input type="number" name="jumlah_satuan" value="{{ $aset->jumlah_satuan }}" class="form-control" placeholder="Jumlah Satuan">
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="form-group">
+                    <strong>Tanggal Pembelian:</strong>
                     <input type="date" name="tanggal_pembelian" value="{{ $aset->tanggal_pembelian }}" class="form-control" placeholder="Tanggal Pembelian">
                 </div>
             </div>
@@ -82,12 +66,25 @@
                     <input type="number" name="harga_pembelian" value="{{ $aset->harga_pembelian }}" class="form-control" placeholder="Harga Pembelian">
                 </div>
             </div>
-            <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="form-group">
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                <label for="kondisi" value="{{ $aset->kondisi }}">Kondisi :</label>
+                <select class="form-control" id="kondisi" name="kondisi"  required>
+                  <option value="{{ $aset->kondisi }}">{{ $aset->kondisi }}</option>
+                  <option value="Baik">Baik</option>
+                  <option value="Rusak Sedang">Rusak Sedang</option>
+                  <option value="Rusak Berat">Rusak Berat</option>
+                </select>
+                </div>
+              </div>
+
+            <!-- <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
                     <strong>Kondisi:</strong>
-                    <input type="text" name="kondisi" value="{{ $aset->kondisi }}" class="form-control" placeholder="Kondisi">
+                    <input type="text" name="kondisi" value="" class="form-control" placeholder="Kondisi">
                 </div>
-            </div>
+            </div> -->
+
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
                     <strong>Keterangan:</strong>

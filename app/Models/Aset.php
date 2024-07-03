@@ -25,4 +25,6 @@ class Aset extends Model
     protected $table = 'asets';
 
     protected $guarded = [];
+
+ 
 }

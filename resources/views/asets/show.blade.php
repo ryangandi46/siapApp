@@ -11,67 +11,69 @@
             </div>
         </div>
     </div>
+    <br>
+    <div class="card-columns" >
+    <div class="card bg-primary">
+      <div class="card-body text-center">
+        <p class="card-text" style="color: white;">Name Aset: {{ $aset->nama_aset }}</p>
+        <p class="card-text" style="color: white;">Spesifikasi: {{ $aset->merek }}</p>
+        <p class="card-text" style="color: white;">Lokasi: {{ $aset->lokasi }}</p>
+        <p class="card-text" style="color: white;">Jumlah satuan: {{ $aset->jumlah_satuan }}</p>
+        <p class="card-text" style="color: white;">Tanggal Pembelian: {{ $aset->tanggal_pembelian }}</p>
+        <p class="card-text" style="color: white;">Harga Pembelian: {{ $aset->harga_pembelian }}</p>
+        <p class="card-text" style="color: white;">Kondisi: {{ $aset->kondisi }}</p>
+        <p class="card-text" style="color: white;">Keterangan: {{ $aset->keterangan }}</p>
+      </div>
+    </div>
 
-    <div class="row">
+    <!--<div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <strong>Name Aset:</strong>
-                {{ $aset->nama_aset }}
+                
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
-                <strong>Jenis Aset:</strong>
-                {{ $aset->jenis_aset }}
-            </div>
-        </div>
-        <div class="col-xs-12 col-sm-12 col-md-12">
-            <div class="form-group">
-                <strong>merek:</strong>
-                {{ $aset->merek }}
-            </div>
-        </div>
-        <div class="col-xs-12 col-sm-12 col-md-12">
-            <div class="form-group">
-                <strong>model:</strong>
-                {{ $aset->model }}
-            </div>
-        </div>
-        <div class="col-xs-12 col-sm-12 col-md-12">
-            <div class="form-group">
-                <strong>Nomor Seri:</strong>
-                {{ $aset->nomor_seri }}
-            </div>
-        </div>
-        <div class="col-xs-12 col-sm-12 col-md-12">
-            <div class="form-group">
-                <strong>kondisi:</strong>
-                {{ $aset->kondisi }}
+                <strong>Spesifikasi:</strong>
+              
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <strong>Lokasi:</strong>
-                {{ $aset->lokasi }}
+                
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="form-group">
+                <strong>Jumlah satuan:</strong>
+                
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <strong>Tanggal Pembelian:</strong>
-                {{ $aset->tanggal_pembelian }}
+                
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <strong>Harga Pembelian:</strong>
-                {{ $aset->harga_pembelian }}
+              
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
-                <strong>keterangan:</strong>
-                {{ $aset->keterangan }}
+                <strong>kondisi:</strong>
+               
             </div>
         </div>
-    </div>
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="form-group">
+                <strong>Keterangan:</strong>
+            
+            </div>
+        </div>
+    </div>-->
 @endsection

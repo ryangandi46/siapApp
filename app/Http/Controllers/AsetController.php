@@ -25,7 +25,7 @@ class AsetController extends Controller
                     $urlEdit = route('aset.edit', $data->id); // Replace with your actual edit route
                     $urlDelete = route('aset.destroy', $data->id); // Replace with your actual delete route
 
-                   
+
                     $button = '<a href="' . $urlShow . '" class="detail btn btn-primary btn-sm"><i class="far fa-eye"></i></a>';
                     $button .= '&nbsp;&nbsp;';
                     $button .= '<a href="' . $urlEdit . '" class="edit btn btn-info btn-sm"><i class="far fa-edit"></i></a>';
@@ -55,6 +55,7 @@ class AsetController extends Controller
      */
     public function create()
     {
+
         return view('asets.create');
     }
 
@@ -67,16 +68,28 @@ class AsetController extends Controller
     public function store(Request $request)
     {
         //validate the input
+        // $request->validate([
+        //     'nama_aset' => 'required',
+        //     'jenis_aset' => 'required',
+        //     'merek' => 'required',
+        //     'model' => 'required',
+        //     'nomor_seri' => 'required',
+        //     'kondisi' => 'required',
+        //     'lokasi' => 'required',
+        //     'tanggal_pembelian' => 'required',
+        //     'harga_pembelian' => 'required',
+        //     'keterangan' => 'required'
+        // ]);
+
+        //validate the input
         $request->validate([
             'nama_aset' => 'required',
-            'jenis_aset' => 'required',
             'merek' => 'required',
-            'model' => 'required',
-            'nomor_seri' => 'required',
-            'kondisi' => 'required',
             'lokasi' => 'required',
+            'jumlah_satuan' => 'required',
             'tanggal_pembelian' => 'required',
             'harga_pembelian' => 'required',
+            'kondisi' => 'required|in:Baik,Rusak Sedang,Rusak Berat',
             'keterangan' => 'required'
         ]);
 
@@ -113,6 +126,8 @@ class AsetController extends Controller
      * @param  \App\Models\Aset  $aset
      * @return \Illuminate\Http\Response
      */
+
+
     public function show(Aset $aset)
     {
         return view('asets.show', compact('aset'));
@@ -138,17 +153,14 @@ class AsetController extends Controller
      */
     public function update(Request $request, Aset $aset)
     {
-        //validate the input
         $request->validate([
             'nama_aset' => 'required',
-            'jenis_aset' => 'required',
             'merek' => 'required',
-            'model' => 'required',
-            'nomor_seri' => 'required',
-            'kondisi' => 'required',
             'lokasi' => 'required',
+            'jumlah_satuan' => 'required',
             'tanggal_pembelian' => 'required',
             'harga_pembelian' => 'required',
+            'kondisi' => 'required|in:Baik,Rusak Sedang,Rusak Berat',
             'keterangan' => 'required'
         ]);
 

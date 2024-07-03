@@ -16,12 +16,10 @@ class CreateAsetTable extends Migration
         Schema::create('asets', function (Blueprint $table) {
             $table->id();
             $table->string('nama_aset');
-            $table->string('jenis_aset');
             $table->string('merek');
-            $table->string('model');
-            $table->string('nomor_seri')->unique();
             $table->string('kondisi');
             $table->string('lokasi');
+            $table->string('jumlah_satuan');
             $table->date('tanggal_pembelian');
             $table->decimal('harga_pembelian', 10, 2);
             $table->text('keterangan')->nullable();

@@ -18,7 +18,7 @@
                         <tr>
                             <th>id</th>
                             <th>Nama Aset</th>
-                            <th>Jenis Aset</th>
+                            <th>Spesifikasi</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
@@ -41,7 +41,7 @@
         // new DataTable('#table_aset');
         $(document).ready(function() {
             //id dari table diatas
-            $('#table_aset').DataTable({
+           $('#table_aset').DataTable({
                 processing: true,
                 //untuk mengaktifkan datatables serverside
                 serverSide: true,
@@ -52,19 +52,16 @@
                 },
                 //columns data yang akan ditampilkan
                 columns: [{
-                        data: null, // Untuk kolom no. urut
-                        render: function(data, type, row, meta) {
-                            // Hitung no. urut berdasarkan index row
-                            return meta.row + 1;
-                        }
+                        data: 'id', // diambil dari database
+                        name: 'id'
                     },
                     {
                         data: 'nama_aset',
                         name: 'nama_aset'
                     },
                     {
-                        data: 'jenis_aset',
-                        name: 'jenis_aset'
+                        data: 'merek',
+                        name: 'merek'
                     },
                     {
                         data: 'action',
@@ -73,7 +70,7 @@
                 ],
                 order: [
                     [0, 'asc'] // dimulai dari dan pilih type urutan data asc/desc
-                ]
+                ]              
             });
         });
     </script>

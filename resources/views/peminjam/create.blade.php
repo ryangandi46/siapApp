@@ -1,20 +1,20 @@
 @extends('templateLayout')
 
-
+@extends('template.headTable')
 
 @section('content')
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Create Aset</h6>
+            <h6 class="m-0 font-weight-bold text-primary">Create peminjaman</h6>
         </div>
         <div class="card-body">
             <div class="row">
                 <div class="col-lg-12 margin-tb">      
                     <div class="pull-left">
-                        <h2>Add Aset</h2>
+                        <h2>Add peminjaman</h2>
                     </div>            
                     <div class="pull-right">
-                        <a class="btn btn-primary" href="{{ route('aset.index') }}"> Back</a>
+                        <a class="btn btn-primary" href="{{ route('peminjaman.index') }}"> Back</a>
                     </div>
                 </div>
             </div>
@@ -35,73 +35,78 @@
                     <h5 class="modal-title" id="modal-judul"></h5>
                 </div>              
                 <form id="form-tambah-edit" name="form-tambah-edit" class="form-horizontal"
-                    action="{{ route('aset.store') }}" method="POST">
+                    action="{{ route('peminjaman.store') }}" method="POST">
                     @csrf
                     <input type="hidden" name="id" id="id">
                     <br>
                     <div class="form-group">
-                        <label for="nama_aset" class="control-label">Nama Aset</label>
+                        <label for="nama_peminjam" class="control-label">Nama Peminjam</label>
                         <div class="col-sm-12">
-                            <input type="text" class="form-control" id="nama_aset" name="nama_aset"
-                                placeholder="Nama Aset" value="" required>
+                            <input type="text" class="form-control" id="nama_peminjam" name="nama_peminjam"
+                                placeholder="Nama Peminjam" value="" required>
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label for="merek" class="control-label">Spesifikasi</label>
+                        <label for="kelas" class="control-label">Kelas</label>
                         <div class="col-sm-12">
-                            <input type="text" name="merek" id="merek" class="form-control"
-                                placeholder="Spesifikasi" value="" required>
+                            <input type="text" name="kelas" id="kelas" class="form-control"
+                                placeholder="Kelas" value="" required>
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label for="lokasi" class="control-label">Lokasi</label>
+                        <label for="nama_aset" class="control-label" >Nama Barang</label>
                         <div class="col-sm-12">
-                            <input type="text" name="lokasi" id="lokasi" class="form-control" placeholder="Lokasi"
-                                value="" required>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="jumlah_satuan" class="control-label">Jumlah Satuan</label>
-                        <div class="col-sm-12">
-                            <input type="number" name="jumlah_satuan" id="jumlah_satuan" class="form-control"
-                                placeholder="Jumlah Satuan" value="" required>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="tanggal_pembelian" class="control-label">Tanggal Pembelian</label>
-                        <div class="col-sm-12">
-                            <input type="date" name="tanggal_pembelian" id="tanggal_pembelian" class="form-control"
-                                placeholder="Tanggal Pembelian" value="" required>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="harga_pembelian" class="control-label">Harga Pembelian</label>
-                        <div class="col-sm-12">
-                            <input type="number" name="harga_pembelian" id="harga_pembelian" class="form-control"
-                                placeholder="Harga Pembelian" value="" required>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-sm-12">
-                            <label for="kondisi">Kondisi :</label>
-                            <select class="form-control" id="kondisi" name="kondisi" required>
-                                <option value="">- Pilih -</option>
-                                <option value="Baik">Baik</option>
-                                <option value="Rusak Sedang">Rusak Sedang</option>
-                                <option value="Rusak Berat">Rusak Berat</option>
+                            <select name="nama_aset" id="nama_aset" class="form-control" required>
+                                {{-- <option value="{{ $aset->nama_aset }}">{{ $aset->nama_aset }}</option> --}}
+                                <option value="" disabled selected>Pilih Nama Barang</option>
+                                @foreach($asets as $aset)
+                                    <option value="{{ $aset->id }}">{{ $aset->nama_aset }}</option>
+                                @endforeach
                             </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="jumlah" class="control-label">Jumlah</label>
+                        <div class="col-sm-12">
+                            <input type="number" name="jumlah" id="jumlah" class="form-control"
+                                placeholder="Jumlah" value="" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="status" class="control-label">Status</label>
+                        <div class="col-sm-12">
+                            <select class="form-control" id="status" name="status" required>
+                                <option value="" disabled selected>- Pilih Status -</option>
+                                <option value="Dipinjam">Dipinjam</option>
+                                <option value="Dikembalikan">Dikembalikan</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="waktu_meminjam" class="control-label">Waktu Meminjam</label>
+                        <div class="col-sm-12">
+                            <input type="datetime-local" name="waktu_meminjam" id="waktu_meminjam" class="form-control"
+                                placeholder="Waktu Meminjam" value="" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="waktu_pengembalian" class="control-label">Waktu Pengembalian</label>
+                        <div class="col-sm-12">
+                            <input type="datetime-local" name="waktu_pengembalian" id="waktu_pengembalian" class="form-control"
+                                placeholder="Waktu Pengembalian" value="">
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label for="keterangan" class="control-label">Keterangan</label>
                         <div class="col-sm-12">
-                            <textarea class="form-control" name="keterangan" id="keterangan" required></textarea>
+                            <textarea class="form-control" name="keterangan" id="keterangan" placeholder="Keterangan" required></textarea>
                         </div>
                     </div>
 

@@ -35,9 +35,9 @@
 
     <!-- Nav Transaksi Aset -->
     <li class="nav-item">
-        <a class="nav-link" href="">
+        <a class="nav-link" href="{{ route('peminjaman.index') }}">
             <i class="fas fa-clipboard-list"></i>
-            <span>Transaction</span></a>
+            <span>Peminjaman Aset</span></a>
     </li>
 
     <!-- Nav Item - List Aset -->

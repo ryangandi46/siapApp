@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Faker\Factory as Faker;
+use App\Models\Aset;
 
 class AsetSeeder extends Seeder
 {
@@ -13,46 +15,20 @@ class AsetSeeder extends Seeder
      */
     public function run()
     {
-        $aset = new \App\Models\Aset([
-            'nama_aset' => 'Aset #1',
-            'jenis_aset' => 'Aset #1 jenis aset',
-            'merek' => 'Aset #1 merek',
-            'model' => 'Aset #1 model',
-            'nomor_seri' => 'Aset #1 nomor seri',
-            'kondisi' => 'Aset #1 kondisi',
-            'lokasi' => 'Aset #1 lokasi',
-            'tanggal_pembelian' => '2001/01/01',
-            'harga_pembelian'  => '100000',
-            'keterangan' => 'Aset #1 keterangan'
-        ]);
-        $aset->save();
+        $faker = Faker::create();
 
-        $aset = new \App\Models\Aset([
-            'nama_aset' => 'Aset #2',
-            'jenis_aset' => 'Aset #2 jenis aset',
-            'merek' => 'Aset #2 merek',
-            'model' => 'Aset #2 model',
-            'nomor_seri' => 'Aset #2 nomor seri',
-            'kondisi' => 'Aset #2 kondisi',
-            'lokasi' => 'Aset #2 lokasi',
-            'tanggal_pembelian' => '2002/02/02',
-            'harga_pembelian'  => '200000',
-            'keterangan' => 'Aset #2 keterangan'
-        ]);
-        $aset->save();
-
-        $aset = new \App\Models\Aset([
-            'nama_aset' => 'Aset #3',
-            'jenis_aset' => 'Aset #3 jenis aset',
-            'merek' => 'Aset #3 merek',
-            'model' => 'Aset #3 model',
-            'nomor_seri' => 'Aset #3 nomor seri',
-            'kondisi' => 'Aset #3 kondisi',
-            'lokasi' => 'Aset #3 lokasi',
-            'tanggal_pembelian' => '2003/03/03',
-            'harga_pembelian'  => '300000',
-            'keterangan' => 'Aset #3 keterangan'
-        ]);
-        $aset->save();
+        for ($i = 1; $i <= 3; $i++) {
+            $aset = new Aset([
+                'nama_aset' => $faker->words(3, true), // 3 kata digabung menjadi satu string
+                'merek' => $faker->company, // Nama perusahaan sebagai merek
+                'kondisi' => $faker->randomElement(['Baru', 'Bekas', 'Rusak']), // Pilihan kondisi
+                'lokasi' => $faker->address, // Alamat lengkap
+                'jumlah_satuan' => $faker->numberBetween(1, 100), // Angka antara 1 dan 100
+                'tanggal_pembelian' => $faker->date('Y-m-d'), // Format tanggal 'YYYY-MM-DD'
+                'harga_pembelian' => $faker->randomFloat(2, 1000, 1000000), // Harga dengan 2 desimal antara 1000 dan 1000000
+                'keterangan' => $faker->sentence(20) // Kalimat dengan 20 kata
+            ]);
+            $aset->save();
+        }
     }
 }

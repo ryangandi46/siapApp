@@ -51,7 +51,9 @@
                     <div class="card-body p-0">
                         <!-- Nested Row within Card Body -->
                         <div class="row">
-                            <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
+                            <div class="col-lg-6 d-none d-lg-block bg-login-image ">
+                                <img src="{{ asset('img/logo_itikurih.png') }}" alt="logo itikurih" class="img-fluid  mx-auto d-block" width="70%" >
+                            </div>
                             <div class="col-lg-6">
                                 <div class="p-5">
                                     <div class="text-center">
@@ -80,8 +82,8 @@
                                         </div>
                                         <div class="form-group">
                                             <div class="custom-control custom-checkbox small">
-                                                <input type="checkbox" class="custom-control-input" id="customCheck">
-                                                <label class="custom-control-label" for="customCheck">Remember
+                                                <input type="checkbox" class="custom-control-input" name="remember" id="remember">
+                                                <label class="custom-control-label" for="remember">Remember
                                                     Me</label>
                                             </div>
                                         </div>
