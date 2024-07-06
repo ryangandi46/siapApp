@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Imports\AsetImport;
 use Dataatables;
 use App\Models\Aset;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 use Yajra\DataTables\Facades\DataTables;
 
 class AsetController extends Controller
@@ -90,7 +92,7 @@ class AsetController extends Controller
             'tanggal_pembelian' => 'required',
             'harga_pembelian' => 'required',
             'kondisi' => 'required|in:Baik,Rusak Sedang,Rusak Berat',
-            'keterangan' => 'required'
+            'keterangan' => ''
         ]);
 
         //create a new product in the database
@@ -185,5 +187,17 @@ class AsetController extends Controller
 
         //redirect the user adn display succes message
         return redirect()->route('aset.index')->with('success', 'Asets Deleted Succressfully');
+    }
+
+    public function importexcel(Request $request)
+    {
+        $data = $request->file('file');
+
+        $namafile = $data->getClientOriginalName();//mengambil nama bawaan dari file yang di import
+        $data->move('AsetData', $namafile);
+
+        //data yang diimport diletakan di AsetData dan mengambil nama file dari bawaan nama file yang diimport
+        Excel::import(new AsetImport, \public_path('/AsetData/'.$namafile));
+        return \redirect()->back();
     }
 }

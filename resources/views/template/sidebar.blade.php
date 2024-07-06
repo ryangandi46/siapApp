@@ -42,10 +42,10 @@
 
     <!-- Nav Item - List Aset -->
     <li class="nav-item">
-        <a class="nav-link" href="">
+        <a class="nav-link" href="{{ route('laporan.index') }}">
 
             <i class="fas fa-poll"></i>
-            <span>Report</span></a>
+            <span>Laporan</span></a>
     </li>
 
     <!-- Nav Item - List Aset -->

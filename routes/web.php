@@ -6,6 +6,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\PeminjamanController;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
@@ -32,10 +33,14 @@ Route::resource('register', RegisterController::class)->middleware('guest');
 Route::resource('dashboard', DashboardController::class)->middleware('auth'); //tambahakan middleware supaya tidak dapat mengakses url dan harus login terlebih dahulu
 Route::resource('user', UserController::class)->middleware('auth');
 Route::resource('peminjaman', PeminjamanController::class)->middleware('auth');
+Route::resource('laporan', LaporanController::class)->middleware('auth');
 
 Route::get('/login', [LoginController::class, 'index'])->name('login')->middleware('guest');
 Route::post('/login', [LoginController::class, 'authenticate']);
 Route::post('/logout', [LoginController::class, 'logout']);
+Route::get('/exportpdf', [LaporanController::class, 'exportpdf'])->name('exportpdf');
+Route::get('/exportexcel', [LaporanController::class, 'exportexcel'])->name('exportexcel');
+Route::post('/importexcel', [AsetController::class, 'importexcel'])->name('importexcel');
 // Route::post('/peminjaman', [LoginController::class, 'create']);
 
 // Route::get('/peminjaman/create', function () {
