@@ -3,7 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-USE App\Models\User;
+use Illuminate\Http\UserRequest;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Gate;
 
 class UserController extends Controller
 {
@@ -14,13 +18,20 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
+
+        // if(!auth()->check() || auth()->user()->email !== 'rianseptiangandi25372@gmail.com'){
+        //     abort(403);
+        // }
+
+        $this->authorize('isAdmin');
+
         $user = User::all();
         if ($request->ajax()) {
             return datatables()->of($user)
                 ->addColumn('action', function ($data) {
                     $urlEdit = route('user.edit', $data->id); // Replace with your actual edit route
                     $urlDelete = route('user.destroy', $data->id); // Replace with your actual delete route
-                   
+
                     $button = '<a href="' . $urlEdit . '" class="edit btn btn-info btn-sm"><i class="far fa-edit"></i></a>';
                     $button .= '&nbsp;&nbsp;';
                     $button .= '<form action="' . $urlDelete . '" method="POST" style="display:inline-block">';
@@ -45,6 +56,7 @@ class UserController extends Controller
      */
     public function create()
     {
+        $this->authorize('isAdmin');
         return view('users.create');
     }
 
@@ -56,14 +68,19 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
+        $this->authorize('isAdmin');
+        $validatedData = $request->validate([
             'name' => 'required',
-            'email' => 'required',            
-            'password' => 'required'
+            'email' => 'required',
+            'password' => 'required',
+            'jabatan' => 'required'
         ]);
 
-        //create a new product in the database
-        User::create($request->all());
+        // $validatedData['passsword'] = bcrypt($validatedData['password']);
+        //menjadikan password di hash/encrypt
+        $validatedData['password'] = Hash::make($validatedData['password']);
+        //create a new user
+        User::create($validatedData);
 
         // redirect the user and send friendly message
         return redirect()->route('user.index')->with('success', 'Users Created Succressfully');
@@ -88,6 +105,7 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
+        $this->authorize('isAdmin');
         return view('users.edit', compact('user'));
     }
 
@@ -100,10 +118,12 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
+        $this->authorize('isAdmin');
         $request->validate([
             'name' => 'required',
-            'email' => 'required',            
-            'password' => ''
+            'email' => 'required',
+            'password' => '',
+            'jabatan' => 'required',
         ]);
 
         //update a  product in the database
@@ -121,11 +141,42 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-         // delete the user
-         $user->delete();
+        $this->authorize('isAdmin');
+        // delete the user
+        $user->delete();
 
 
-         //redirect the user adn display succes message
-         return redirect()->route('user.index')->with('success', 'Users Deleted Succressfully');
+        //redirect the user adn display succes message
+        return redirect()->route('user.index')->with('success', 'Users Deleted Succressfully');
+    }
+
+    public function changePasswordForm(Request $request)
+    {
+        $this->authorize('changepass-user');
+        return view('users.changepass');
+    }
+
+    public function changePassword(Request $request)
+    {
+        $this->authorize('changepass-user');
+        $request->validate([
+            'current_password' => ['required','string'],
+            'password' => ['required', 'string', 'min:8', 'confirmed']
+        ]);
+
+        $currentPasswordStatus = Hash::check($request->current_password, auth()->user()->password);
+        if($currentPasswordStatus){
+
+            User::findOrFail(Auth::user()->id)->update([
+                'password' => Hash::make($request->password),
+            ]);
+
+            return redirect()->back()->with('message','Password Updated Successfully');
+
+        }else{
+
+            return redirect()->back()->with('message','Current Password does not match with Old Password');
+        }
+    
     }
 }

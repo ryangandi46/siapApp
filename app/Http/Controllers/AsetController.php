@@ -7,7 +7,7 @@ use Dataatables;
 use App\Models\Aset;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
-use Yajra\DataTables\Facades\DataTables;
+use Illuminate\Support\Facades\Gate;
 
 class AsetController extends Controller
 {
@@ -19,6 +19,9 @@ class AsetController extends Controller
     public function index(Request $request)
     {
         // $aset = Aset::latest()->paginate(10);
+
+        $this->authorize('view'); //pengecekan izin akses masuk
+
         $aset = Aset::all();
         if ($request->ajax()) {
             return datatables()->of($aset)
@@ -27,16 +30,18 @@ class AsetController extends Controller
                     $urlEdit = route('aset.edit', $data->id); // Replace with your actual edit route
                     $urlDelete = route('aset.destroy', $data->id); // Replace with your actual delete route
 
-
                     $button = '<a href="' . $urlShow . '" class="detail btn btn-primary btn-sm"><i class="far fa-eye"></i></a>';
-                    $button .= '&nbsp;&nbsp;';
-                    $button .= '<a href="' . $urlEdit . '" class="edit btn btn-info btn-sm"><i class="far fa-edit"></i></a>';
-                    $button .= '&nbsp;&nbsp;';
-                    $button .= '<form action="' . $urlDelete . '" method="POST" style="display:inline-block">';
-                    $button .= csrf_field();
-                    $button .= method_field('DELETE'); // Add method field for DELETE request
-                    $button .= '<button type="submit" class="delete btn btn-danger btn-sm"><i class="far fa-trash-alt"></i></button>';
-                    $button .= '</form>';
+                    $userRole = auth()->user()->jabatan;
+                    if (in_array($userRole, ['admin', 'sarana', 'kaprog'])) {
+                        $button .= '&nbsp;&nbsp;';
+                        $button .= '<a href="' . $urlEdit . '" class="edit btn btn-info btn-sm"><i class="far fa-edit"></i></a>';
+                        $button .= '&nbsp;&nbsp;';
+                        $button .= '<form action="' . $urlDelete . '" method="POST" style="display:inline-block">';
+                        $button .= csrf_field();
+                        $button .= method_field('DELETE'); // Add method field for DELETE request
+                        $button .= '<button type="submit" class="delete btn btn-danger btn-sm"><i class="far fa-trash-alt"></i></button>';
+                        $button .= '</form>';
+                    }
                     return '<div class="text-center">' . $button . '</div>';
                 })
                 ->rawColumns(['action'])
@@ -57,7 +62,7 @@ class AsetController extends Controller
      */
     public function create()
     {
-
+        $this->authorize('action');
         return view('asets.create');
     }
 
@@ -69,20 +74,7 @@ class AsetController extends Controller
      */
     public function store(Request $request)
     {
-        //validate the input
-        // $request->validate([
-        //     'nama_aset' => 'required',
-        //     'jenis_aset' => 'required',
-        //     'merek' => 'required',
-        //     'model' => 'required',
-        //     'nomor_seri' => 'required',
-        //     'kondisi' => 'required',
-        //     'lokasi' => 'required',
-        //     'tanggal_pembelian' => 'required',
-        //     'harga_pembelian' => 'required',
-        //     'keterangan' => 'required'
-        // ]);
-
+        $this->authorize('action');
         //validate the input
         $request->validate([
             'nama_aset' => 'required',
@@ -100,26 +92,6 @@ class AsetController extends Controller
 
         // redirect the user and send friendly message
         return redirect()->route('aset.index')->with('success', 'Asets Created Succressfully');
-
-        // $id = $request->id;
-
-        // $post   =   Aset::updateOrCreate(
-        //     ['id' => $id],
-        //     [
-        //         'nama_aset' => $request->nama_aset,
-        //         'jenis_aset' => $request->jenis_aset,
-        //         'merek' => $request->merek,
-        //         'model' => $request->model,
-        //         'nomor_seri' => $request->nomor_seri,
-        //         'kondisi' => $request->kondisi,
-        //         'lokasi' => $request->lokasi,
-        //         'tanggal_pembelian' => $request->tanggal_pemebelian,
-        //         'harga_pembelian' => $request->harga_pembelian,
-        //         'keterangan' => $request->keterangan,
-        //     ]
-        // );
-
-        // return response()->json($post);
     }
 
     /**
@@ -132,6 +104,7 @@ class AsetController extends Controller
 
     public function show(Aset $aset)
     {
+        $this->authorize('view');
         return view('asets.show', compact('aset'));
     }
 
@@ -143,6 +116,7 @@ class AsetController extends Controller
      */
     public function edit(Aset $aset)
     {
+        $this->authorize('action');
         return view('asets.edit', compact('aset'));
     }
 
@@ -155,6 +129,7 @@ class AsetController extends Controller
      */
     public function update(Request $request, Aset $aset)
     {
+        $this->authorize('action');
         $request->validate([
             'nama_aset' => 'required',
             'merek' => 'required',
@@ -162,8 +137,8 @@ class AsetController extends Controller
             'jumlah_satuan' => 'required',
             'tanggal_pembelian' => 'required',
             'harga_pembelian' => 'required',
-            'kondisi' => 'required|in:Baik,Rusak Sedang,Rusak Berat',
-            'keterangan' => 'required'
+            'kondisi' => 'required',
+            'keterangan' => ''
         ]);
 
         //update a  product in the database
@@ -181,6 +156,7 @@ class AsetController extends Controller
      */
     public function destroy(Aset $aset)
     {
+        $this->authorize('action');
         // delete the aset
         $aset->delete();
 
@@ -191,13 +167,15 @@ class AsetController extends Controller
 
     public function importexcel(Request $request)
     {
+        $this->authorize('import-excel');
+
         $data = $request->file('file');
 
-        $namafile = $data->getClientOriginalName();//mengambil nama bawaan dari file yang di import
+        $namafile = $data->getClientOriginalName(); //mengambil nama bawaan dari file yang di import
         $data->move('AsetData', $namafile);
 
         //data yang diimport diletakan di AsetData dan mengambil nama file dari bawaan nama file yang diimport
-        Excel::import(new AsetImport, \public_path('/AsetData/'.$namafile));
+        Excel::import(new AsetImport, \public_path('/AsetData/' . $namafile));
         return \redirect()->back();
     }
 }

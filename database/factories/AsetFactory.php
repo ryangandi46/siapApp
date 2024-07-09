@@ -14,7 +14,7 @@ class AsetFactory extends Factory
     public function definition()
     {
         return [
-            'nama_aset' => $this->faker->words(3, true), // 3 kata digabung menjadi satu string
+            'nama_aset' => $this->faker->randomElement(['Laptop', 'Proyektor', 'Kamera']), // 3 kata digabung menjadi satu string
             'merek' => $this->faker->company, // Nama perusahaan sebagai merek
             'kondisi' => $this->faker->randomElement(['Baru', 'Bekas', 'Rusak']), // Pilihan kondisi
             'lokasi' => $this->faker->address, // Alamat lengkap

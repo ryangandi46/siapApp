@@ -82,6 +82,18 @@
                                             id="exampleRepeatPassword" placeholder="Repeat Password">
                                     </div> --}}
                                 </div>
+                                <div class="form-group">
+
+                                    <input type="text"
+                                        class="form-control form-control-user @error('jabatan')
+                                            is-invalid
+                                        @enderror"
+                                        id="exampleInputPassword" placeholder="Jabatan" name="jabatan" required>
+                                        value="{{ old('jabatan') }}">
+                                    @error('jabatan')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
                                 {{-- <a href="{{ route('register.store') }}" class="btn btn-primary btn-user btn-block">
                                     Register Account
                                 </a> --}}

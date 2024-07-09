@@ -4,7 +4,23 @@
 <head>
     <title>SiapApp</title>
     @include('template.head')
+    <style>
+        body,
+        html {
+            height: 100%;
+        }
 
+        #content-wrapper {
+            /* padding-top: 56px; Height of the fixed navbar */
+        }
+
+        #content {
+            height: calc(100vh - 56px);
+            /* Full height minus height of navbar */
+            overflow-y: auto;
+            /*Scrollable content area */
+        }
+    </style>
 </head>
 
 <body id="page-top">
@@ -23,7 +39,7 @@
             <div id="content">
 
                 <!-- Topbar -->
-               @include('template.navbar')
+                @include('template.navbar')
                 <!-- End of Topbar -->
 
                 <!-- Begin Page Content -->
@@ -72,8 +88,8 @@
         </div>
     </div> --}}
 
-   @include('template.script')
 
+    @include('template.script')
 </body>
 
 </html>

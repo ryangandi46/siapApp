@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Aset;
 use App\Models\Peminjaman;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Gate;
+
+use App\Imports\PeminjamanImport;
 
 class PeminjamanController extends Controller
 {
@@ -15,27 +19,32 @@ class PeminjamanController extends Controller
      */
     public function index(Request $request)
     {
+        $this->authorize('view'); //pengecekan izin akses masuk
         $peminjaman = Peminjaman::all();
         if ($request->ajax()) {
             return datatables()->of($peminjaman)
-                ->addColumn('action', function ($data) {                    
-                    $urlEdit = route('peminjaman.edit', $data->id); // Replace with your actual edit route
-                    $urlDelete = route('peminjaman.destroy', $data->id); // Replace with your actual delete route
-
-                    $button = '<a href="' . $urlEdit . '" class="edit btn btn-info btn-sm"><i class="far fa-edit"></i></a>';
-                    $button .= '&nbsp;&nbsp;';
-                    $button .= '<form action="' . $urlDelete . '" method="POST" style="display:inline-block">';
-                    $button .= csrf_field();
-                    $button .= method_field('DELETE'); // Add method field for DELETE request
-                    $button .= '<button type="submit" class="delete btn btn-danger btn-sm"><i class="far fa-trash-alt"></i></button>';
-                    $button .= '</form>';
+            ->addColumn('action', function ($data) {
+                $urlEdit = route('peminjaman.edit', $data->id); // Replace with your actual edit route
+                $urlDelete = route('peminjaman.destroy', $data->id); // Replace with your actual delete route
+                
+                $button = ''; // Inisialisasi $button dengan string kosong
+                
+                if (Gate::allows('action')) {
+                        $button = '<a href="' . $urlEdit . '" class="edit btn btn-info btn-sm"><i class="far fa-edit"></i></a>';
+                        $button .= '&nbsp;&nbsp;';
+                        $button .= '<form action="' . $urlDelete . '" method="POST" style="display:inline-block">';
+                        $button .= csrf_field();
+                        $button .= method_field('DELETE'); // Add method field for DELETE request
+                        $button .= '<button type="submit" class="delete btn btn-danger btn-sm"><i class="far fa-trash-alt"></i></button>';
+                        $button .= '</form>';
+                    }
                     return '<div class="text-center">' . $button . '</div>';
                 })
                 ->rawColumns(['action'])
                 ->addIndexColumn()
                 ->make(true);
         }
-       
+
         return view('peminjam.index');
     }
 
@@ -46,6 +55,7 @@ class PeminjamanController extends Controller
      */
     public function create()
     {
+        $this->authorize('action'); //pengecekan izin akses masuk
         $asets = Aset::all(); //query untuk menampilkan data dari model
         return view('peminjam.create', compact('asets')); //compact untuk pasing data ke halaman create
     }
@@ -58,8 +68,9 @@ class PeminjamanController extends Controller
      */
     public function store(Request $request)
     {
-          //validate the input
-          $request->validate([
+        $this->authorize('action'); //pengecekan izin akses masuk
+        //validate the input
+        $request->validate([
             'nama_peminjam' => 'required',
             'kelas' => 'required',
             'nama_aset' => 'required',
@@ -96,9 +107,10 @@ class PeminjamanController extends Controller
      */
     public function edit(Peminjaman $peminjaman)
     {
+        $this->authorize('action'); //pengecekan izin akses masuk
         $asets = Aset::all(); //query untuk menampilkan data dari model
         $peminjam = Peminjaman::all(); //query untuk menampilkan data dari model
-        return view('peminjam.edit', compact('asets','peminjaman')); //compact untuk pasing data ke halaman create
+        return view('peminjam.edit', compact('asets', 'peminjaman')); //compact untuk pasing data ke halaman create
         // return view('peminjam.edit', compact('peminjaman'));
     }
 
@@ -111,6 +123,7 @@ class PeminjamanController extends Controller
      */
     public function update(Request $request, Peminjaman $peminjaman)
     {
+        $this->authorize('action'); //pengecekan izin akses masuk
         $request->validate([
             'nama_peminjam' => 'required',
             'kelas' => 'required',
@@ -122,11 +135,11 @@ class PeminjamanController extends Controller
             'keterangan' => ''
         ]);
 
-         //update a  product in the database
-         $peminjaman->update($request->all());
+        //update a  product in the database
+        $peminjaman->update($request->all());
 
-         // redirect the user and send friendly message
-         return redirect()->route('peminjaman.index')->with('success', 'peminjams Updated Succressfully');
+        // redirect the user and send friendly message
+        return redirect()->route('peminjaman.index')->with('success', 'peminjams Updated Succressfully');
     }
 
     /**
@@ -137,9 +150,23 @@ class PeminjamanController extends Controller
      */
     public function destroy(Peminjaman $peminjaman)
     {
+        $this->authorize('action'); //pengecekan izin akses masuk
         $peminjaman->delete();
 
-         //redirect the user adn display succes message
-         return redirect()->route('peminjaman.index')->with('success', 'peminjams Deleted Succressfully');
+        //redirect the user adn display succes message
+        return redirect()->route('peminjaman.index')->with('success', 'peminjams Deleted Succressfully');
+    }
+
+    public function importexcel(Request $request)
+    {
+        $this->authorize('import-excel');
+        $data = $request->file('file');
+
+        $namafile = $data->getClientOriginalName(); //mengambil nama bawaan dari file yang di import
+        $data->move('PeminjamanData', $namafile); //memindahkan data ke directory peminjaman data
+
+        //data yang diimport diletakan di AsetData dan mengambil nama file dari bawaan nama file yang diimport
+        Excel::import(new PeminjamanImport, \public_path('/PeminjamanData/' . $namafile));
+        return \redirect()->back();
     }
 }

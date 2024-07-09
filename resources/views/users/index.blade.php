@@ -19,6 +19,7 @@
                             <th>No</th>
                             <th>Nama</th>
                             <th>Email</th>
+                            <th>Jabatan</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
@@ -65,6 +66,10 @@
                     {
                         data: 'email',
                         name: 'email'
+                    },
+                    {
+                        data: 'jabatan',
+                        name: 'jabatan'
                     },
                     {
                         data: 'action',

@@ -8,30 +8,33 @@
             <h6 class="m-0 font-weight-bold text-primary">Inventaris peminjam</h6>
         </div>
         <div class="card-body">
-            <form id="filterForm">
-                <div class="form-row">
-                    <div class="form-group col-md-3">
-                        <label for="start_date">Tanggal Mulai</label>
-                        <input type="date" class="form-control" id="start_date" name="start_date">
+            @can('action')
+                <form id="filterForm">
+                    <div class="form-row">
+                        <div class="form-group col-md-3">
+                            <label for="start_date">Tanggal Mulai</label>
+                            <input type="date" class="form-control" id="start_date" name="start_date">
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="end_date">Tanggal Selesai</label>
+                            <input type="date" class="form-control" id="end_date" name="end_date">
+                        </div>
+                        <div class="form-group col-xs-12  text-center">
+                            <label>&nbsp;</label>
+                            <button type="button" id="filterBtn" class="btn btn-primary form-control">Filter</button>
+                        </div>
+                        <div class="form-group col-xs-12">
+                            <label>&nbsp;</label>
+                            <button type="button" id="exportBtnPdf" class="btn btn-danger form-control">Export PDF</button>
+                        </div>
+                        <div class="form-group col-xs-12">
+                            <label>&nbsp;</label>
+                            <button type="button" id="exportBtnExcel" class="btn btn-success form-control">Export
+                                Excel</button>
+                        </div>
                     </div>
-                    <div class="form-group col-md-3">
-                        <label for="end_date">Tanggal Selesai</label>
-                        <input type="date" class="form-control" id="end_date" name="end_date">
-                    </div>
-                    <div class="form-group col-xs-12  text-center">
-                        <label>&nbsp;</label>
-                        <button type="button" id="filterBtn" class="btn btn-primary form-control">Filter</button>
-                    </div>
-                    <div class="form-group col-xs-12">
-                        <label>&nbsp;</label>
-                        <button type="button" id="exportBtnPdf" class="btn btn-danger form-control">Export PDF</button>
-                    </div>
-                    <div class="form-group col-xs-12">
-                        <label>&nbsp;</label>
-                        <button type="button" id="exportBtnExcel" class="btn btn-success form-control">Export Excel</button>
-                    </div>
-                </div>
-            </form>
+                </form>
+            @endcan
 
             <div class="table-responsive">
                 <table id="table_laporan" class="table table-bordered" width="100%" cellspacing="0">

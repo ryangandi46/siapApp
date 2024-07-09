@@ -6,6 +6,7 @@ use App\Models\Peminjaman;
 use Illuminate\Http\Request;
 use App\Exports\LaporanExport;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Gate;
 
 
 
@@ -16,6 +17,7 @@ class LaporanController extends Controller
 {
     public function index(Request $request)
     {
+        $this->authorize('view');
         if ($request->ajax()) {
             $query = Peminjaman::query();
 
@@ -33,6 +35,7 @@ class LaporanController extends Controller
 
     public function exportpdf(Request $request)
     {
+        $this->authorize('action');
         // $data = Peminjaman::all();
 
         // view()->share('data', $data);
@@ -60,6 +63,7 @@ class LaporanController extends Controller
 
     public function exportexcel(Request $request)
     {
+        $this->authorize('action');
         // return Excel::download(new LaporanExport, 'laporan-peminjaman.xlsx');
         // Get start and end dates from the request
         $tanggal_awal = $request->get('start_date');
