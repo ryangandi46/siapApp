@@ -56,6 +56,10 @@
                             <td>{{ $aset->merek }}</td>
                         </tr>
                         <tr>
+                            <th>Jurusan</th>
+                            <td>{{ $aset->jurusan }}</td>
+                        </tr>
+                        <tr>
                             <th>Lokasi</th>
                             <td>{{ $aset->lokasi }}</td>
                         </tr>
@@ -66,10 +70,6 @@
                         <tr>
                             <th>Tanggal Pembelian</th>
                             <td>{{ $aset->tanggal_pembelian }}</td>
-                        </tr>
-                        <tr>
-                            <th>Harga Pembelian</th>
-                            <td>{{ $aset->harga_pembelian }}</td>
                         </tr>
                         <tr>
                             <th>Kondisi</th>
@@ -85,32 +85,6 @@
             {{-- end table --}}
 
 
-            {{-- start description list alignment --}}
-            <dl class="row">
-                <dt class="col-sm-3">Nama Aset</dt>
-                <dd class="col-sm-9">{{ $aset->nama_aset }}</dd>
-
-                <dt class="col-sm-3">Merek</dt>
-                <dd class="col-sm-9">{{ $aset->merek }}</dd>
-
-                <dt class="col-sm-3">Lokasi</dt>
-                <dd class="col-sm-9">{{ $aset->lokasi }}</dd>
-
-                <dt class="col-sm-3">Jumlah</dt>
-                <dd class="col-sm-9">{{ $aset->jumlah_satuan }}</dd>
-
-                <dt class="col-sm-3">Tanggal Pembelian</dt>
-                <dd class="col-sm-9">{{ $aset->tanggal_pembelian }}</dd>
-
-                <dt class="col-sm-3">Harga Pembelian</dt>
-                <dd class="col-sm-9">{{ $aset->harga_pembelian }}</dd>
-
-                <dt class="col-sm-3">Kondisi</dt>
-                <dd class="col-sm-9">{{ $aset->kondisi }}</dd>
-
-                <dt class="col-sm-3">Keterangan</dt>
-                <dd class="col-sm-9">{{ $aset->keterangan }}</dd>
-            </dl>
         </div>
         {{-- end description list alignment --}}
     @endsection

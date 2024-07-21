@@ -73,16 +73,19 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="harga_pembelian" class="control-label">Harga Pembelian</label>
-                                <input type="number" name="harga_pembelian" id="harga_pembelian" class="form-control"
-                                    placeholder="Harga Pembelian" value="" required>
+                                <label for="jurusan" class="control-label">Jurusan</label>
+                                <select class="form-control" id="jurusan" name="jurusan" required>
+                                    <option value="">- Pilih -</option>
+                                    <option value="TKJ">TKJ</option>
+                                    <option value="AKL">AKL</option>                                
+                                </select>
                             </div>
 
                             <div class="form-group">
                                 <label for="kondisi" class="control-label">Kondisi</label>
                                 <select class="form-control" id="kondisi" name="kondisi" required>
                                     <option value="">- Pilih -</option>
-                                    <option value="Baik">Baik</option>
+                                    <option value="Bagus">Bagus</option>
                                     <option value="Rusak Sedang">Rusak Sedang</option>
                                     <option value="Rusak Berat">Rusak Berat</option>
                                 </select>

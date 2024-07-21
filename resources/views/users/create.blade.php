@@ -58,10 +58,21 @@
                                     placeholder="Masukan Password" required>
                             </div>
 
-                            <div class="form-group">
+                            {{-- <div class="form-group">
                                 <label for="jabatan">Jabatan</label>
                                 <input type="text" class="form-control" id="jabatan" name="jabatan"
                                     value="{{ old('jabatan') }}" placeholder="Masukan jabatan kamu" required>
+                            </div> --}}
+
+                            <div class="form-group">
+                                <label for="jabatan" class="control-label">jabatan</label>
+                                <select class="form-control" id="jabatan"  name="jabatan" required>
+                                    <option value="">- Pilih -</option>
+                                    <option value="admin">admin</option>
+                                    <option value="sarana">sarana</option>
+                                    <option value="kaprog">kaprog</option>
+                                    <option value="toolman">toolman</option>
+                                </select>
                             </div>
 
                             <div class="form-group text-right">

@@ -68,16 +68,19 @@
 
 
                         <div class="form-group">
-                            <strong>Harga Pembelian:</strong>
-                            <input type="number" name="harga_pembelian" value="{{ $aset->harga_pembelian }}"
-                                class="form-control" placeholder="Harga Pembelian">
+                            <label for="jurusan" class="control-label">Jurusan :</label>
+                            <select class="form-control" id="jurusan" name="jurusan" required>
+                                <option value="{{ $aset->jurusan }}">{{ $aset->jurusan }}</option>
+                                <option value="TKJ">TKJ</option>
+                                <option value="AKL">AKL</option>                                
+                            </select>
                         </div>
 
                         <div class="form-group">
                             <label for="kondisi" class="control-label">Kondisi :</label>
                             <select class="form-control" id="kondisi" name="kondisi" required>
                                 <option value="{{ $aset->kondisi }}">{{ $aset->kondisi }}</option>
-                                <option value="Baik">Baik</option>
+                                <option value="Bagus">Bagus</option>
                                 <option value="Rusak Sedang">Rusak Sedang</option>
                                 <option value="Rusak Berat">Rusak Berat</option>
                             </select>

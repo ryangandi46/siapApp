@@ -21,7 +21,7 @@ class PeminjamanImport implements ToModel
             'jumlah' => $row[3] ?? null,
             'status' => $row[4] ?? null,
             'keterangan' => $row[5] ?? null,
-            'waktu_meminjam' => $row[6] ?? now(),
+            'waktu_meminjam' => $row[6] ?? null,
             'waktu_pengembalian' => $row[7] ?? null,
             'created_at' => $row[8] ?? now(),
             'updated_at' => $row[9] ?? now(),

@@ -48,9 +48,14 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="jabatan">Jabatan</label>
-                            <input type="text" class="form-control" id="jabatan" name="jabatan"
-                                value="{{ $user->jabatan }}" placeholder="Masukan jabatan kamu" required>
+                            <label for="jabatan" class="control-label">jabatan</label>
+                            <select class="form-control" id="jabatan"  value="{{ old('jabatan') }}" name="jabatan" required>
+                                <option value="{{ $user->jabatan }}">{{ $user->jabatan }}</option>
+                                <option value="admin">admin</option>
+                                <option value="sarana">sarana</option>
+                                <option value="kaprog">kaprog</option>
+                                <option value="toolman">toolman</option>
+                            </select>
                         </div>
 
                         <div class="form-group text-right">

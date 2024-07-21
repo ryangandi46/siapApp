@@ -88,8 +88,7 @@
                                         class="form-control form-control-user @error('jabatan')
                                             is-invalid
                                         @enderror"
-                                        id="exampleInputPassword" placeholder="Jabatan" name="jabatan" required>
-                                        value="{{ old('jabatan') }}">
+                                        id="exampleInputPassword" placeholder="Jabatan" value="{{ old('jabatan') }}" name="jabatan" required>                                        
                                     @error('jabatan')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror

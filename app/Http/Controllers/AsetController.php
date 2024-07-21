@@ -31,6 +31,7 @@ class AsetController extends Controller
                     $urlDelete = route('aset.destroy', $data->id); // Replace with your actual delete route
 
                     $button = '<a href="' . $urlShow . '" class="detail btn btn-primary btn-sm"><i class="far fa-eye"></i></a>';
+                    //untuk penkondisian action berdasarkan role
                     $userRole = auth()->user()->jabatan;
                     if (in_array($userRole, ['admin', 'sarana', 'kaprog'])) {
                         $button .= '&nbsp;&nbsp;';
@@ -82,7 +83,7 @@ class AsetController extends Controller
             'lokasi' => 'required',
             'jumlah_satuan' => 'required',
             'tanggal_pembelian' => 'required',
-            'harga_pembelian' => 'required',
+            'jurusan' => 'required',
             'kondisi' => 'required|in:Baik,Rusak Sedang,Rusak Berat',
             'keterangan' => ''
         ]);
@@ -136,7 +137,7 @@ class AsetController extends Controller
             'lokasi' => 'required',
             'jumlah_satuan' => 'required',
             'tanggal_pembelian' => 'required',
-            'harga_pembelian' => 'required',
+            'jurusan' => 'required',
             'kondisi' => 'required',
             'keterangan' => ''
         ]);
@@ -165,7 +166,7 @@ class AsetController extends Controller
         return redirect()->route('aset.index')->with('success', 'Asets Deleted Succressfully');
     }
 
-    public function importexcel(Request $request)
+    public function importexcelAset(Request $request)
     {
         $this->authorize('import-excel');
 

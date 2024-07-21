@@ -43,8 +43,8 @@ Route::post('/changepassword', [UserController::class, 'changePassword'])->name(
 Route::get('/changepass', [UserController::class, 'changePasswordForm'])->name('changepass')->middleware('can:view');
 Route::get('/exportpdf', [LaporanController::class, 'exportpdf'])->name('exportpdf')->middleware('can:action');
 Route::get('/exportexcel', [LaporanController::class, 'exportexcel'])->name('exportexcel')->middleware('can:action');
-Route::post('/importexcel', [AsetController::class, 'importexcel'])->name('importexcel')->middleware('can:action');
-Route::post('/importexcel', [PeminjamanController::class, 'importexcel'])->name('importexcel')->middleware('can:action');
+Route::post('/importexcelAset', [AsetController::class, 'importexcelAset'])->name('importexcelAset')->middleware('can:action');
+Route::post('/importexcelPeminjaman', [PeminjamanController::class, 'importexcelPeminjaman'])->name('importexcelPeminjaman')->middleware('can:action');
 
 // Route::get('/peminjaman/create', function () {
 //     return view('peminjam.create');

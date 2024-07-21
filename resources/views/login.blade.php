@@ -78,7 +78,8 @@
                                         <div class="form-group">
                                             <input type="password" name="password"
                                                 class="form-control form-control-user" id="password"
-                                                placeholder="Password" required>
+                                                placeholder="Password" required
+                                                value="{{ old('password')}}">
                                         </div>
                                         <div class="form-group">
                                             <div class="custom-control custom-checkbox small">

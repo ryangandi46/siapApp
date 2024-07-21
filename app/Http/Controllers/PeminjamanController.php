@@ -78,7 +78,7 @@ class PeminjamanController extends Controller
             'status' => 'required|in:Dipinjam, Dikembalikan',
             'waktu_meminjam' => 'required',
             'waktu_pengembalian' => '',
-            'keterangan' => 'required'
+            'keterangan' => ''
         ]);
 
         //create a new product in the database
@@ -127,7 +127,7 @@ class PeminjamanController extends Controller
         $request->validate([
             'nama_peminjam' => 'required',
             'kelas' => 'required',
-            'nama_peminjam' => 'required',
+            'nama_aset' => 'required',
             'jumlah' => 'required',
             'status' => 'required',
             'waktu_meminjam' => 'required',
@@ -157,7 +157,7 @@ class PeminjamanController extends Controller
         return redirect()->route('peminjaman.index')->with('success', 'peminjams Deleted Succressfully');
     }
 
-    public function importexcel(Request $request)
+    public function importexcelPeminjaman(Request $request)
     {
         $this->authorize('import-excel');
         $data = $request->file('file');

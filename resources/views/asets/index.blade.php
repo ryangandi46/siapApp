@@ -30,7 +30,7 @@
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
-                            <form action="{{ route('importexcel') }}" method="POST" enctype="multipart/form-data">
+                            <form action="{{ route('importexcelAset') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
 
                                 <div class="modal-body">
@@ -55,7 +55,9 @@
                         <tr>
                             <th>NO</th>
                             <th>Nama Aset</th>
-                            <th>Spesifikasi</th>
+                            <th>Jurusan</th>
+                            <th>Tanggal</th>
+                            <th>Kondisi</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
@@ -91,8 +93,16 @@
                         name: 'nama_aset'
                     },
                     {
-                        data: 'merek',
-                        name: 'merek'
+                        data: 'jurusan',
+                        name: 'jurusan'
+                    },
+                    {
+                        data: 'tanggal_pembelian',
+                        name: 'tanggal_pembelian'
+                    },
+                    {
+                        data: 'kondisi',
+                        name: 'kondisi'
                     },
                     {
                         data: 'action',

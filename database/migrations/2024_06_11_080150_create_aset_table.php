@@ -17,11 +17,11 @@ class CreateAsetTable extends Migration
             $table->id();
             $table->string('nama_aset');
             $table->string('merek');
+            $table->string('jurusan');
             $table->string('kondisi');
             $table->string('lokasi');
             $table->string('jumlah_satuan');
             $table->date('tanggal_pembelian');
-            $table->decimal('harga_pembelian', 10, 2);
             $table->text('keterangan')->nullable();
             $table->timestamps();
         });
