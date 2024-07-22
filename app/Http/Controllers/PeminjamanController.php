@@ -20,16 +20,22 @@ class PeminjamanController extends Controller
     public function index(Request $request)
     {
         $this->authorize('view'); //pengecekan izin akses masuk
-        $peminjaman = Peminjaman::all();
+        // $peminjaman = Peminjaman::all();
+        // Get all peminjaman records with the related aset names
+        $peminjaman = Peminjaman::with('aset')->get();
+
         if ($request->ajax()) {
             return datatables()->of($peminjaman)
-            ->addColumn('action', function ($data) {
-                $urlEdit = route('peminjaman.edit', $data->id); // Replace with your actual edit route
-                $urlDelete = route('peminjaman.destroy', $data->id); // Replace with your actual delete route
-                
-                $button = ''; // Inisialisasi $button dengan string kosong
-                
-                if (Gate::allows('action')) {
+            ->editColumn('nama_aset', function($peminjaman) {
+                return $peminjaman->aset->nama_aset ; // Fetch the related asset name
+            })
+                ->addColumn('action', function ($data) {
+                    $urlEdit = route('peminjaman.edit', $data->id); // Replace with your actual edit route
+                    $urlDelete = route('peminjaman.destroy', $data->id); // Replace with your actual delete route
+
+                    $button = ''; // Inisialisasi $button dengan string kosong
+
+                    if (Gate::allows('action')) {
                         $button = '<a href="' . $urlEdit . '" class="edit btn btn-info btn-sm"><i class="far fa-edit"></i></a>';
                         $button .= '&nbsp;&nbsp;';
                         $button .= '<form action="' . $urlDelete . '" method="POST" style="display:inline-block">';
@@ -45,7 +51,7 @@ class PeminjamanController extends Controller
                 ->make(true);
         }
 
-        return view('peminjam.index');
+        return view('peminjam.index', compact('peminjaman'));
     }
 
     /**
@@ -71,18 +77,19 @@ class PeminjamanController extends Controller
         $this->authorize('action'); //pengecekan izin akses masuk
         //validate the input
         $request->validate([
+            'penanggung_jawab' => 'required',
             'nama_peminjam' => 'required',
             'kelas' => 'required',
             'nama_aset' => 'required',
             'jumlah' => 'required',
-            'status' => 'required|in:Dipinjam, Dikembalikan',
             'waktu_meminjam' => 'required',
-            'waktu_pengembalian' => '',
             'keterangan' => ''
         ]);
 
         //create a new product in the database
-        Peminjaman::create($request->all());
+        $peminjaman = new Peminjaman($request->all());
+        $peminjaman->status = 'Dipinjam';
+        $peminjaman->save();
 
         // redirect the user and send friendly message
         return redirect()->route('peminjaman.index')->with('success', 'peminjams Created Succressfully');
@@ -131,7 +138,7 @@ class PeminjamanController extends Controller
             'jumlah' => 'required',
             'status' => 'required',
             'waktu_meminjam' => 'required',
-            'waktu_pengembalian' => 'required',
+            'waktu_pengembalian' => '',
             'keterangan' => ''
         ]);
 
@@ -168,5 +175,15 @@ class PeminjamanController extends Controller
         //data yang diimport diletakan di AsetData dan mengambil nama file dari bawaan nama file yang diimport
         Excel::import(new PeminjamanImport, \public_path('/PeminjamanData/' . $namafile));
         return \redirect()->back();
+    }
+
+    public function pengembalianAset(Request $request)
+    {
+        $peminjaman = Peminjaman::find($request->id);
+        $peminjaman->waktu_pengembalian = now();
+        $peminjaman->status = 'Dikembalikan';
+        $peminjaman->save();
+
+        return response()->json(['success' => true]);
     }
 }

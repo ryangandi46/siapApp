@@ -57,9 +57,9 @@
                             <div class="form-group">
                                 <label for="nama_aset" class="control-label">Nama Barang</label>
                                 <select name="nama_aset" id="nama_aset" class="form-control" required>                               
-                                    <option value="{{ $peminjaman->nama_aset }}">{{ $peminjaman->nama_aset }}</option>
+                                    <option value="{{ $peminjaman->nama_aset }}">{{ $peminjaman->aset->nama_aset }} - {{ $peminjaman->aset->jurusan }}</option>
                                     @foreach ($asets as $aset)
-                                        <option value="{{ $aset->id }}">{{ $aset->nama_aset }}</option>
+                                        <option value="{{ $aset->id }}">{{ $aset->nama_aset }} - {{ $aset->jurusan }}</option>
                                     @endforeach
                                 </select>
                             </div>

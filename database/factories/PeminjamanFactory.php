@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Models\Aset;
 
 class PeminjamanFactory extends Factory
 {
@@ -16,7 +17,7 @@ class PeminjamanFactory extends Factory
         return [
             'nama_peminjam' => $this->faker->name,
             'kelas' => $this->faker->randomElement(['X', 'XI', 'XII']), // Example classes
-            'nama_aset' => $this->faker->randomElement(['Laptop', 'Proyektor', 'Kamera']), // Example assets
+            'nama_aset' => Aset::factory(), // Example assets
             'jumlah' => $this->faker->randomDigit,
             'status' => $this->faker->randomElement(['Dipinjam', 'Dikembalikan']),
             // 'waktu_meminjam' => $this->faker->dateTimeBetween('-1 month', 'now'),

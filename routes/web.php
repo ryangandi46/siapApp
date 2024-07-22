@@ -45,6 +45,7 @@ Route::get('/exportpdf', [LaporanController::class, 'exportpdf'])->name('exportp
 Route::get('/exportexcel', [LaporanController::class, 'exportexcel'])->name('exportexcel')->middleware('can:action');
 Route::post('/importexcelAset', [AsetController::class, 'importexcelAset'])->name('importexcelAset')->middleware('can:action');
 Route::post('/importexcelPeminjaman', [PeminjamanController::class, 'importexcelPeminjaman'])->name('importexcelPeminjaman')->middleware('can:action');
+Route::post('/pengembalianAset', [PeminjamanController::class, 'pengembalianAset'])->name('pengembalianAset')->middleware('can:action');
 
 // Route::get('/peminjaman/create', function () {
 //     return view('peminjam.create');

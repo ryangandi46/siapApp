@@ -10,6 +10,21 @@ class Peminjaman extends Model
     use HasFactory;
 
     protected $table = 'peminjaman';
+    // protected $fillable = [
+    //     'nama_peminjam', 
+    //     'kelas', 
+    //     'nama_aset', 
+    //     'jumlah', 
+    //     'waktu_meminjam', 
+    //     'keterangan',
+    //     'status'
+    // ];
 
     protected $guarded = [];
+
+    public function aset()
+    {
+        // belongs to untuk memberi tahu bahwa model peminjaman dimiliki aset
+        return $this->belongsTo(Aset::class,'nama_aset');
+    }
 }

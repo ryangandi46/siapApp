@@ -26,5 +26,8 @@ class Aset extends Model
 
     protected $guarded = [];
 
- 
+    public function peminjaman()
+    {
+    	return $this->hasMany(Peminjaman::class);
+    } 
 }

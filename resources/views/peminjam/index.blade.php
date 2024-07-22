@@ -193,7 +193,8 @@
                         name: 'kelas'
                     },
                     {
-                        data: 'nama_aset',
+                        // data: 'nama_aset',
+                        data: 'aset.nama_aset',
                         name: 'nama_aset'
                     },
                     {
@@ -210,7 +211,14 @@
                     },
                     {
                         data: 'waktu_pengembalian',
-                        name: 'waktu_pengembalian'
+                        name: 'waktu_pengembalian',
+                        render: function(data, type, row) {
+                            if (data == null) {
+                                return `<button class="btn btn-success kembalikan" data-id="${row.id}">Kembalikan</button>`;
+                            } else {
+                                return data;
+                            }
+                        }
                     },
                     {
                         data: 'keterangan',
@@ -234,6 +242,20 @@
                         var rowIndex = index + 1;
                         var rowNumber = startRow + rowIndex;
                         $(row).find('td:first').html(rowNumber);
+                    });
+                    $('.kembalikan').on('click', function() {
+                        var id = $(this).data('id');
+                        $.ajax({
+                            url: '{{ route('pengembalianAset') }}',
+                            method: 'POST',
+                            data: {
+                                _token: '{{ csrf_token() }}',
+                                id: id
+                            },
+                            success: function(response) {
+                                $('#table_peminjaman').DataTable().ajax.reload();
+                            }
+                        });
                     });
                 }
             });

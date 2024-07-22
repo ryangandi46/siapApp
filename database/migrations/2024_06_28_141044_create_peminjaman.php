@@ -17,13 +17,16 @@ class CreatePeminjaman extends Migration
             $table->id();
             $table->string('nama_peminjam');
             $table->string('kelas');
-            $table->string('nama_aset');
+            // $table->string('nama_aset');
+            $table->foreignId('nama_aset')->constrained('asets')->onDelete('cascade');
             $table->string('jumlah');
             $table->string('status');           
             $table->string('keterangan')->nullable();
             $table->timestamp('waktu_meminjam');
             $table->timestamp('waktu_pengembalian')->nullable();
             $table->timestamps();
+
+            // $table->foreign('nama_aset')->references('id')->on('asets')->onDelete('cascade');
         });
     }
 
