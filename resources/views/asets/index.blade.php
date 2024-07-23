@@ -19,6 +19,8 @@
                     <button type="button" class="btn btn-primary ml-auto" data-toggle="modal" data-target="#exampleModal">
                         Import Aset
                     </button>
+
+
                 </div>
                 <!-- Modal -->
                 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -35,6 +37,14 @@
 
                                 <div class="modal-body">
                                     <div class="form-group">
+                                        <p>Download Tamplate terlebih dahulu untuk mengetahui format dan cara penulisan yang
+                                            digunakan</p>
+                                        {{-- button download template --}}
+                                        <div class="d-flex">
+                                            <a href="{{ route('downloadTemplateAset') }}" class="btn btn-success">Download
+                                                Template</a>
+                                        </div>
+                                        <br>
                                         <input type="file" name="file" required>
                                     </div>
                                 </div>
@@ -48,6 +58,7 @@
                 </div>
                 <br>
             @endcan
+
 
             <div class="table-responsive">
                 <table id="table_aset" class="table table-bordered" width="100%" cellspacing="0">

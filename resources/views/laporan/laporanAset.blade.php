@@ -5,19 +5,27 @@
 @section('content')
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Inventaris peminjam</h6>
+            <h6 class="m-0 font-weight-bold text-primary">Laporan Aset</h6>
         </div>
         <div class="card-body">
             @can('action')
                 <form id="filterForm">
                     <div class="form-row">
-                        <div class="form-group col-md-3">
+                        <div class="form-group col-md-2">
                             <label for="start_date">Tanggal Mulai</label>
                             <input type="date" class="form-control" id="start_date" name="start_date">
                         </div>
-                        <div class="form-group col-md-3">
+                        <div class="form-group col-md-2">
                             <label for="end_date">Tanggal Selesai</label>
                             <input type="date" class="form-control" id="end_date" name="end_date">
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label for="jurusan">Jurusan</label>
+                            <select class="form-control" id="jurusan" name="jurusan">
+                                <option value="">Semua Jurusan</option>
+                                <option value="AKL">AKL</option>
+                                <option value="TKJ">TKJ</option>
+                            </select>
                         </div>
                         <div class="form-group col-xs-12  text-center">
                             <label>&nbsp;</label>
@@ -41,13 +49,13 @@
                     <thead>
                         <tr>
                             <th>NO</th>
-                            <th>Nama</th>
-                            <th>kelas</th>
-                            <th>Nama Barang</th>
-                            <th>jumlah</th>
-                            <th>waktu Meminjam</th>
-                            <th>status</th>
-                            <th>waktu Pengembalian</th>
+                            <th>Nama Aset</th>
+                            <th>Merek</th>
+                            <th>lokasi</th>
+                            <th>Jumlah Satuan</th>
+                            <th>Tanggal Pembelian</th>
+                            <th>Jurusan</th>
+                            <th>Kondisi</th>                            
                             <th>keterangan</th>
                         </tr>
                     </thead>
@@ -59,16 +67,17 @@
     @extends('template.scriptTable')
     <script>
         $(document).ready(function() {
-            function fetch_data(start_date = '', end_date = '') {
+            function fetch_data(start_date = '', end_date = '',  jurusan = '') {
                 $('#table_laporan').DataTable({
                     processing: true,
                     serverSide: true,
                     ajax: {
-                        url: "{{ route('laporan.index') }}",
+                        url: "{{ route('laporanAset.index') }}",
                         type: 'GET',
                         data: {
                             start_date: start_date,
-                            end_date: end_date
+                            end_date: end_date,
+                            jurusan: jurusan
                         }
                     },
                     columns: [{
@@ -78,37 +87,37 @@
                             searchable: false
                         },
                         {
-                            data: 'nama_peminjam',
-                            name: 'nama_peminjam'
-                        },
-                        {
-                            data: 'kelas',
-                            name: 'kelas'
-                        },
-                        {
                             data: 'nama_aset',
                             name: 'nama_aset'
                         },
                         {
-                            data: 'jumlah',
-                            name: 'jumlah'
+                            data: 'merek',
+                            name: 'merek'
                         },
                         {
-                            data: 'waktu_meminjam',
-                            name: 'waktu_meminjam'
+                            data: 'lokasi',
+                            name: 'lokasi'
                         },
                         {
-                            data: 'status',
-                            name: 'status'
+                            data: 'jumlah_satuan',
+                            name: 'jumlah_satuan'
                         },
                         {
-                            data: 'waktu_pengembalian',
-                            name: 'waktu_pengembalian'
+                            data: 'tanggal_pembelian',
+                            name: 'tanggal_pembelian'
+                        },
+                        {
+                            data: 'jurusan',
+                            name: 'jurusan'
+                        },
+                        {
+                            data: 'kondisi',
+                            name: 'kondisi'
                         },
                         {
                             data: 'keterangan',
-                            name: 'keterangan'
-                        },
+                            name: 'keterangan',                            
+                        },                        
                     ],
                     order: [
                         [0, 'asc']
@@ -131,7 +140,8 @@
             $('#filterBtn').click(function() {
                 var start_date = $('#start_date').val();
                 var end_date = $('#end_date').val();
-                if (start_date != '' && end_date != '') {
+                var jurusan = $('#jurusan').val();
+                if (start_date != '' && end_date != ''  ) {
                     $('#table_laporan').DataTable().destroy();
                     fetch_data(start_date, end_date);
                 } else {
@@ -142,9 +152,10 @@
             $('#exportBtnPdf').click(function() {
                 var start_date = $('#start_date').val();
                 var end_date = $('#end_date').val();
-                if (start_date != '' && end_date != '') {
-                    window.location.href = "{{ route('exportpdf') }}?start_date=" + start_date +
-                        "&end_date=" + end_date;
+                var jurusan = $('#jurusan').val();
+                if (start_date != '' && end_date != '' ) {
+                    window.location.href = "{{ route('exportpdfAset') }}?start_date=" + start_date +
+                        "&end_date=" + end_date ;
                 } else {
                     alert('Both Date is required for export');
                 }
@@ -153,8 +164,9 @@
             $('#exportBtnExcel').click(function() {
                 var start_date = $('#start_date').val();
                 var end_date = $('#end_date').val();
+                var jurusan = $('#jurusan').val();
                 if (start_date != '' && end_date != '') {
-                    window.location.href = "{{ route('exportexcel') }}?start_date=" + start_date +
+                    window.location.href = "{{ route('exportexcelAset') }}?start_date=" + start_date +
                         "&end_date=" + end_date;
                 } else {
                     alert('Both Date is required for export');

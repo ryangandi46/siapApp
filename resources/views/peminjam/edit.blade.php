@@ -43,6 +43,11 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
+                                <label for="penanggung_jawab" class="control-label">Penanggung Jawab</label>
+                                <input type="text" name="penanggung_jawab" id="penanggung_jawab" class="form-control" placeholder="Penanggung_jawab"
+                                    value="{{ $peminjaman->user->name  }}" readonly>
+                            </div>
+                            <div class="form-group">
                                 <label for="nama_peminjam" class="control-label">Nama Peminjam</label>
                                 <input type="text" class="form-control" id="nama_peminjam" name="nama_peminjam"
                                     placeholder="Nama Peminjam" value="{{ $peminjaman->nama_peminjam }}" required>

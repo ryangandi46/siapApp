@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Peminjaman;
 use Illuminate\Http\Request;
-use App\Exports\LaporanExport;
+use App\Exports\LaporanExportPeminjaman;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Gate;
 
@@ -18,6 +18,9 @@ class LaporanController extends Controller
     public function index(Request $request)
     {
         $this->authorize('view');
+        $peminjaman = Peminjaman::with('aset')->get();
+        $user = Peminjaman::with('user')->get();
+
         if ($request->ajax()) {
             $query = Peminjaman::query();
 
@@ -26,14 +29,20 @@ class LaporanController extends Controller
             }
 
             return FacadesDataTables::of($query)
+            ->editColumn('nama_aset', function($peminjaman) {
+                return $peminjaman->aset->nama_aset ; // Fetch the related asset name
+            })
+            ->editColumn('penanggung_jawab', function($user) {
+                return $user->user->name ; // Fetch the related asset name
+            })
                 ->addIndexColumn()
                 ->make(true);
         }
 
-        return view('laporan.index');
+        return view('laporan.laporanPeminjaman');
     }
 
-    public function exportpdf(Request $request)
+    public function exportpdfPeminjaman(Request $request)
     {
         $this->authorize('action');
         // $data = Peminjaman::all();
@@ -57,11 +66,11 @@ class LaporanController extends Controller
         view()->share('data', $data);
 
         // Memuat view PDF dan generate PDF
-        $pdf = FacadePdf::loadview('laporanPeminjaman-pdf');
-        return $pdf->download('laporan-peminjaman.pdf');
+        $pdf = FacadePdf::loadview('laporan.laporanPeminjaman-pdf');
+        return $pdf->download('laporan.laporan-peminjaman.pdf');
     }
 
-    public function exportexcel(Request $request)
+    public function exportexcelPeminjaman(Request $request)
     {
         $this->authorize('action');
         // return Excel::download(new LaporanExport, 'laporan-peminjaman.xlsx');
@@ -73,6 +82,6 @@ class LaporanController extends Controller
         $data = Peminjaman::whereBetween('waktu_meminjam', [$tanggal_awal, $tanggal_akhir])->get();
 
         // Prepare Excel export using Laravel Excel
-        return Excel::download(new LaporanExport($data), 'laporan-peminjaman.xlsx');
+        return Excel::download(new LaporanExportPeminjaman($data), 'laporan-peminjaman.xlsx');
     }
 }

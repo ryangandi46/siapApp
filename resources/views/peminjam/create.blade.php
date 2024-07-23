@@ -43,9 +43,9 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="penanggungJawab" class="control-label">Penanggung Jawab</label>
-                                <input type="text" name="penanggungJawab" id="penanggungJawab" class="form-control" placeholder="PenanggungJawab"
-                                    value="{{ auth()->user()->name }}" readonly>
+                                <label for="penanggung_jawab" class="control-label">Penanggung Jawab</label>
+                                <input type="text" name="penanggung_jawab" id="penanggung_jawab" class="form-control" placeholder="Penanggung_jawab"
+                                    value="{{ auth()->user()->id }}" readonly>
                             </div>
                             <div class="form-group">
                                 <label for="nama_peminjam" class="control-label">Nama Peminjam</label>

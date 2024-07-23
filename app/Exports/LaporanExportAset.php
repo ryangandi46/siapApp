@@ -2,11 +2,11 @@
 
 namespace App\Exports;
 
-use App\Models\Peminjaman;
+use App\Models\Aset;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 
-class LaporanExport implements FromCollection, WithHeadings
+class LaporanExportAset implements FromCollection, WithHeadings
 {
     // /**
     // * @return \Illuminate\Support\Collection
@@ -26,14 +26,14 @@ class LaporanExport implements FromCollection, WithHeadings
     {
         return $this->data->map(function($item) {
             return [
-                'ID Peminjaman' => $item->id,
-                'nama_peminjam' => $item->nama_peminjam,
-                'kelas' => $item->kelas,
+                'ID Aset' => $item->id,
                 'nama_aset' => $item->nama_aset,
-                'jumlah' => $item->jumlah,
-                'waktu_meminjam' => $item->waktu_meminjam,
-                'status' => $item->status,
-                'waktu_pengembalian' => $item->waktu_pengembalian,
+                'merek' => $item->merek,
+                'lokasi' => $item->lokasi,
+                'jumlah_satuan' => $item->jumlah_satuan,
+                'tanggal_pembelian' => $item->tanggal_pembelian,
+                'jurusan' => $item->jurusan,
+                'kondisi' => $item->kondisi,
                 'keterangan' => $item->keterangan,
             ];
         });
@@ -42,14 +42,14 @@ class LaporanExport implements FromCollection, WithHeadings
     public function headings(): array
     {
         return [
-            'ID Peminjaman', // Replace with actual header names
-            'Nama Peminjam',
-            'Kelas',
-            'Nama Barang',
+            'ID Aset', // Replace with actual header names
+            'Nama Aset',
+            'Merek',
+            'Lokasi',
             'Jumlah',
-            'Waktu Meminjam',
-            'Status',
-            'Waktu Pengembalian',
+            'Tanggal Pembelian',
+            'Jurusan',
+            'Kondisi',
             'Keterangan',
         ];
     }

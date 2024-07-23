@@ -39,6 +39,14 @@
 
                                 <div class="modal-body">
                                     <div class="form-group">
+                                        <p>Download Tamplate terlebih dahulu untuk mengetahui format dan cara penulisan yang
+                                            digunakan</p>
+                                        {{-- button download template --}}
+                                        <div class="d-flex">
+                                            <a href="{{ route('downloadTemplatePeminjaman') }}" class="btn btn-success">Download
+                                                Template</a>
+                                        </div>
+                                        <br>
                                         <input type="file" name="file" required>
                                     </div>
                                 </div>
@@ -61,6 +69,7 @@
                         <tr>
                             <th>NO</th>
                             <th>Nama</th>
+                            <th>Penanggung Jawab</th>
                             <th>kelas</th>
                             <th>Nama Barang</th>
                             <th>jumlah</th>
@@ -187,6 +196,11 @@
                     {
                         data: 'nama_peminjam',
                         name: 'nama_peminjam'
+                    },
+                    {
+                        data: 'penanggung_jawab',
+                        // data: 'user.name',
+                        name: 'penanggung_jawab'
                     },
                     {
                         data: 'kelas',

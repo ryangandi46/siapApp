@@ -4,6 +4,7 @@
     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
         <div class="sidebar-brand-icon rotate-n-15">
             <i class="fas fa-laugh-wink"></i>
+            {{-- <img src="{{ asset('img/logo_itikurih.png') }}" alt="logo itikurih" class="img-fluid  mx-auto d-block" width="70%" > --}}
         </div>
         <div class="sidebar-brand-text mx-3">Siap</div>
     </a>
@@ -42,10 +43,14 @@
 
     <!-- Nav Item - List Aset -->
     <li class="nav-item">
-        <a class="nav-link" href="{{ route('laporan.index') }}">
-
+        <a class="nav-link" href="{{ route('laporanAset.index') }}">
             <i class="fas fa-poll"></i>
-            <span>Laporan</span></a>
+            <span>Laporan Aset</span></a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('laporan.index') }}">
+            <i class="fas fa-poll"></i>
+            <span>Laporan Peminjaman</span></a>
     </li>
 
     <!-- Nav Item - List Aset -->

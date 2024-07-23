@@ -84,7 +84,7 @@ class AsetController extends Controller
             'jumlah_satuan' => 'required',
             'tanggal_pembelian' => 'required',
             'jurusan' => 'required',
-            'kondisi' => 'required|in:Baik,Rusak Sedang,Rusak Berat',
+            'kondisi' => 'required|in:Bagus,Rusak Sedang,Rusak Berat',
             'keterangan' => ''
         ]);
 
@@ -178,5 +178,15 @@ class AsetController extends Controller
         //data yang diimport diletakan di AsetData dan mengambil nama file dari bawaan nama file yang diimport
         Excel::import(new AsetImport, \public_path('/AsetData/' . $namafile));
         return \redirect()->back();
+    }
+
+    public function downloadTemplateAset()
+    {
+        $headers = [
+            'Content-Type' => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+            'Content-Disposition' => 'attachment;filename=template_aset.xlsx',
+        ];
+
+        return response()->download(public_path('templateExcel/contoh_tamplate.xlsx'), 'template_aset.xlsx', $headers);
     }
 }

@@ -27,4 +27,9 @@ class Peminjaman extends Model
         // belongs to untuk memberi tahu bahwa model peminjaman dimiliki aset
         return $this->belongsTo(Aset::class,'nama_aset');
     }
+    public function user()
+    {
+        // belongs to untuk memberi tahu bahwa model peminjaman dimiliki user
+        return $this->belongsTo(User::class,'penanggung_jawab');
+    }
 }

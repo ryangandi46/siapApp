@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Aset;
+use App\Models\User;
 
 class PeminjamanFactory extends Factory
 {
@@ -16,6 +17,7 @@ class PeminjamanFactory extends Factory
     {
         return [
             'nama_peminjam' => $this->faker->name,
+            'penanggung_jawab' => User::factory(),
             'kelas' => $this->faker->randomElement(['X', 'XI', 'XII']), // Example classes
             'nama_aset' => Aset::factory(), // Example assets
             'jumlah' => $this->faker->randomDigit,

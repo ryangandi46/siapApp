@@ -16,9 +16,11 @@ class CreatePeminjaman extends Migration
         Schema::create('peminjaman', function (Blueprint $table) {
             $table->id();
             $table->string('nama_peminjam');
+            // $table->string('penanggung_jawab');
             $table->string('kelas');
             // $table->string('nama_aset');
             $table->foreignId('nama_aset')->constrained('asets')->onDelete('cascade');
+            $table->foreignId('penanggung_jawab')->constrained('users')->onDelete('cascade');
             $table->string('jumlah');
             $table->string('status');           
             $table->string('keterangan')->nullable();

@@ -23,11 +23,15 @@ class PeminjamanController extends Controller
         // $peminjaman = Peminjaman::all();
         // Get all peminjaman records with the related aset names
         $peminjaman = Peminjaman::with('aset')->get();
+        $user = Peminjaman::with('user')->get();
 
         if ($request->ajax()) {
             return datatables()->of($peminjaman)
             ->editColumn('nama_aset', function($peminjaman) {
                 return $peminjaman->aset->nama_aset ; // Fetch the related asset name
+            })
+            ->editColumn('penanggung_jawab', function($user) {
+                return $user->user->name ; // Fetch the related asset name
             })
                 ->addColumn('action', function ($data) {
                     $urlEdit = route('peminjaman.edit', $data->id); // Replace with your actual edit route
@@ -77,7 +81,7 @@ class PeminjamanController extends Controller
         $this->authorize('action'); //pengecekan izin akses masuk
         //validate the input
         $request->validate([
-            'penanggung_jawab' => 'required',
+            'penanggung_jawab' => '',
             'nama_peminjam' => 'required',
             'kelas' => 'required',
             'nama_aset' => 'required',
@@ -185,5 +189,14 @@ class PeminjamanController extends Controller
         $peminjaman->save();
 
         return response()->json(['success' => true]);
+    }
+    public function downloadTemplatePeminjaman()
+    {
+        $headers = [
+            'Content-Type' => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+            'Content-Disposition' => 'attachment;filename=template_aset.xlsx',
+        ];
+
+        return response()->download(public_path('templateExcel/contoh_tamplate.xlsx'), 'template_aset.xlsx', $headers);
     }
 }

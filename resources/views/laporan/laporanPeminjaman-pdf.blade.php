@@ -38,6 +38,28 @@
             padding: 5px;
             text-align: left;
         }
+
+        .signature {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 50px;
+        }
+
+        .signature div {
+            text-align: center;
+            width: 200px;
+        }
+
+        .signature div p {
+            margin-top: 70px;
+            border-top: 1px solid black;
+            padding-top: 5px;
+        }
+
+        .signature div:last-child {
+            /* Right signature */
+            text-align: right;
+        }
     </style>
 </head>
 
@@ -56,7 +78,7 @@
         <hr>
         <h4>DAFTAR INVENTARIS BARANG TKJ</h4>
         <h5>SMK ITIKURIH HIBARNA</h5>
-       
+
     </div>
 
     <table>
@@ -64,6 +86,7 @@
             <tr>
                 <th>NO</th>
                 <th>Nama</th>
+                <th>Penanggung Jawab</th>
                 <th>Kelas</th>
                 <th>Nama Barang</th>
                 <th>Jumlah</th>
@@ -78,17 +101,35 @@
                 <tr>
                     <td>{{ $index + 1 }}</td>
                     <td>{{ $item->nama_peminjam }}</td>
+                    <td>{{ $item->user->name }}</td>//penanggung jawab
                     <td>{{ $item->kelas }}</td>
-                    <td>{{ $item->nama_aset }}</td>
+                    <td>{{ $item->aset->nama_aset }}</td>
                     <td>{{ $item->jumlah }}</td>
                     <td>{{ $item->waktu_meminjam }}</td>
                     <td>{{ $item->status }}</td>
-                    <td>{{ $item->waktu_pengembalian }}</td>
+
+                    <td>{{ $item->waktu_pengembalian ? $item->waktu_pengembalian : 'Belum Dikembalikan' }}</td>
                     <td>{{ $item->keterangan }}</td>
                 </tr>
             @endforeach
         </tbody>
     </table>
+
+    <div class="date-location">
+        <p>{{ now()->format('d M Y') }}</p>
+        <p>Tempat: Bandung</p>
+    </div>
+
+    <div class="signature">
+        <div>
+            <p>Toolman</p>
+            {{-- <p>____________________</p> --}}
+        </div>
+        <div>
+            <p>Kepala Program</p>
+            {{-- <p>____________________</p> --}}
+        </div>
+    </div>
 </body>
 
 </html>
