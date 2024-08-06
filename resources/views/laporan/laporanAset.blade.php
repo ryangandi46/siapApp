@@ -22,7 +22,7 @@
                         <div class="form-group col-md-2">
                             <label for="jurusan">Jurusan</label>
                             <select class="form-control" id="jurusan" name="jurusan">
-                                <option value="">Semua Jurusan</option>
+                                <option value="">Semua Jurusan</option>                              
                                 <option value="AKL">AKL</option>
                                 <option value="TKJ">TKJ</option>
                             </select>
@@ -143,7 +143,7 @@
                 var jurusan = $('#jurusan').val();
                 if (start_date != '' && end_date != ''  ) {
                     $('#table_laporan').DataTable().destroy();
-                    fetch_data(start_date, end_date);
+                    fetch_data(start_date, end_date, jurusan);
                 } else {
                     alert('Both Date is required');
                 }
@@ -155,7 +155,7 @@
                 var jurusan = $('#jurusan').val();
                 if (start_date != '' && end_date != '' ) {
                     window.location.href = "{{ route('exportpdfAset') }}?start_date=" + start_date +
-                        "&end_date=" + end_date ;
+                        "&end_date=" + end_date + "&jurusan=" + jurusan;
                 } else {
                     alert('Both Date is required for export');
                 }

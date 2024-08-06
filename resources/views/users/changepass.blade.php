@@ -26,7 +26,7 @@
                         <div class="card-body">
                             <div class="col-lg-12 margin-tb">
                                 <div class="pull-right">
-                                    <a class="btn btn-primary" href="{{ route('user.index') }}"> Back</a>
+                                    <a class="btn btn-primary" href="{{ route('dashboard.index') }}"> Back</a>
                                 </div>
                             </div>
                             <form action="{{ route('changepassword') }}" method="POST">

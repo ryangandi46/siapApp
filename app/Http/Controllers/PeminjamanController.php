@@ -197,6 +197,6 @@ class PeminjamanController extends Controller
             'Content-Disposition' => 'attachment;filename=template_aset.xlsx',
         ];
 
-        return response()->download(public_path('templateExcel/contoh_tamplate.xlsx'), 'template_aset.xlsx', $headers);
+        return response()->download(public_path('templateExcel/template-import-peminjaman.xlsx'), 'template_peminjaman.xlsx', $headers);
     }
 }

@@ -22,7 +22,7 @@ class AsetImport implements ToModel
             'lokasi' => $row[3] ?? null,
             'jumlah_satuan' => $row[4] ?? null,
             'tanggal_pembelian' =>$row[5] ?? null,
-            'harga_pembelian' => $row[6] ?? null,
+            'jurusan' => $row[6] ?? null,
             'keterangan' => $row[7] ?? null,
             // 'timestamps' => [
             'created_at' => $row[8] ?? now(),
