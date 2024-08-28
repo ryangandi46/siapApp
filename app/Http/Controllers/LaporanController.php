@@ -66,7 +66,7 @@ class LaporanController extends Controller
         view()->share('data', $data);
 
         // Memuat view PDF dan generate PDF
-        $pdf = FacadePdf::loadview('laporan.laporanPeminjaman-pdf');
+        $pdf = FacadePdf::loadview('laporan.laporanPeminjaman-pdf')->setPaper('a4', 'landscape');
         return $pdf->download('laporan.laporan-peminjaman.pdf');
     }
 

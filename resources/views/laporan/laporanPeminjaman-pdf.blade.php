@@ -76,7 +76,7 @@
             Izin Pendirian Disdikbud Kab. Bandung Nomor: 421.3/2466 NSS: 322020813059 NPSN: 2025665
         </p>
         <hr>
-        <h4>DAFTAR INVENTARIS BARANG TKJ</h4>
+        <h4>DAFTAR LAPORAN PEMINJAMAN ASET</h4>
         <h5>SMK ITIKURIH HIBARNA</h5>
 
     </div>
@@ -115,7 +115,7 @@
         </tbody>
     </table>
 
-    <div class="date-location">
+    {{-- <div class="date-location">
         <p>{{ now()->format('d M Y') }}</p>
         <p>Tempat: Bandung</p>
     </div>
@@ -124,12 +124,12 @@
         <div>
             <p>Toolman</p>
             {{-- <p>____________________</p> --}}
-        </div>
+        {{-- </div>
         <div>
-            <p>Kepala Program</p>
+            <p>Kepala Program</p> --}}
             {{-- <p>____________________</p> --}}
-        </div>
-    </div>
+        {{-- </div>
+    </div> --}}
 </body>
 
 </html>
