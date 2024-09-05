@@ -24,11 +24,11 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 |
 */
 
-Route::get('/', function () {
-    return view('dashboard');
-});
+// Route::get('/', function () {
+//     return view('dashboard');
+// });
 
-
+Route::get('/', [DashboardController::class, 'index'])->name('dashboard')->middleware('auth');
 
 Route::resource('aset', AsetController::class)->middleware('auth');
 Route::resource('login', LoginController::class);

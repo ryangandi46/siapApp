@@ -44,9 +44,11 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="penanggung_jawab" class="control-label">Penanggung Jawab</label>
-                                <input type="text" name="penanggung_jawab" id="penanggung_jawab" class="form-control" placeholder="Penanggung_jawab"
+                                <input type="text"  id="penanggung_jawab" class="form-control" placeholder="Penanggung_jawab"
                                     value="{{ $peminjaman->user->name  }}" readonly>
                             </div>
+                             <!-- Hidden field untuk menyimpan ID pengguna -->
+                             <input type="hidden" name="penanggung_jawab" value="{{ auth()->user()->id }}">
                             <div class="form-group">
                                 <label for="nama_peminjam" class="control-label">Nama Peminjam</label>
                                 <input type="text" class="form-control" id="nama_peminjam" name="nama_peminjam"

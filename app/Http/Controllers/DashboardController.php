@@ -12,40 +12,7 @@ class DashboardController extends Controller
     public function index(Peminjaman $peminjaman)
     {
         $asets = Aset::all(); //query untuk menampilkan data dari model
-        // $peminjaman = Peminjaman::all(); //query untuk menampilkan data dari model
-        // $peminjaman = Peminjaman::where('status', 'Dipinjam')->paginate(10); // Atur jumlah item per halaman sesuai kebutuhan
-        // return view('dashboard', compact('asets', 'peminjaman'));
-
-        // Mengambil data aset yang terlambat dikembalikan (lebih dari satu hari)
-        // $overdueLoans = DB::table('peminjaman', 'asets')
-        //     ->where('waktu_pengembalian', '<', now())
-        //     ->where('status', '!=', 'dikembalikan')
-        //     ->with('aset')
-        //     ->get();
-
-        // // Menghitung jumlah aset yang sedang dipinjam
-        // $asetDipinjam = DB::table('peminjaman')
-        //     ->where('status', 'Dipinjam')
-        //     ->get();
-
-        // $overdueLoans = Peminjaman::with('aset')
-        //     ->where('waktu_pengembalian', '<', now())
-        //     ->where('status', '!=', 'dikembalikan')
-        //     ->get();
-
-
-        // // Menghitung jumlah peminjaman yang terlambat dikembalikan
-        // $overdueCount = $overdueLoans->count();
-
-        // // Mengambil data aset yang sedang dipinjam
-        // $asetDipinjam = Peminjaman::with('aset')
-        //     ->where('status', 'Dipinjam')
-        //     ->get();
-
-
-        // $overdueCount = $overdueLoans->count();
-        // $listPeminjaman = $asetDipinjam->count();
-
+      
         // Mengambil data peminjaman yang belum dikembalikan dan sudah melewati waktu pengembalian dengan pagination
         $overdueLoans = Peminjaman::with('aset')
             ->where('waktu_pengembalian', '<', now())
