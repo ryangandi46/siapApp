@@ -4,6 +4,25 @@
 
 @section('content')
     <div class="card shadow mb-4">
+        {{-- Success Message --}}
+        @if (session('success'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ session('success') }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        @endif
+
+        <!-- Alert Error -->
+        @if (session('error'))
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                {{ session('error') }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        @endif
         <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-primary">Laporan Aset</h6>
         </div>
@@ -22,7 +41,7 @@
                         <div class="form-group col-md-2">
                             <label for="jurusan">Jurusan</label>
                             <select class="form-control" id="jurusan" name="jurusan">
-                                <option value="">Semua Jurusan</option>                              
+                                <option value="">Semua Jurusan</option>
                                 <option value="AKL">AKL</option>
                                 <option value="TKJ">TKJ</option>
                             </select>
@@ -55,7 +74,7 @@
                             <th>Jumlah Satuan</th>
                             <th>Tanggal Pembelian</th>
                             <th>Jurusan</th>
-                            <th>Kondisi</th>                            
+                            <th>Kondisi</th>
                             <th>keterangan</th>
                         </tr>
                     </thead>
@@ -67,7 +86,7 @@
     @extends('template.scriptTable')
     <script>
         $(document).ready(function() {
-            function fetch_data(start_date = '', end_date = '',  jurusan = '') {
+            function fetch_data(start_date = '', end_date = '', jurusan = '') {
                 $('#table_laporan').DataTable({
                     processing: true,
                     serverSide: true,
@@ -116,8 +135,8 @@
                         },
                         {
                             data: 'keterangan',
-                            name: 'keterangan',                            
-                        },                        
+                            name: 'keterangan',
+                        },
                     ],
                     order: [
                         [0, 'asc']
@@ -141,7 +160,7 @@
                 var start_date = $('#start_date').val();
                 var end_date = $('#end_date').val();
                 var jurusan = $('#jurusan').val();
-                if (start_date != '' && end_date != ''  ) {
+                if (start_date != '' && end_date != '') {
                     $('#table_laporan').DataTable().destroy();
                     fetch_data(start_date, end_date, jurusan);
                 } else {
@@ -153,7 +172,7 @@
                 var start_date = $('#start_date').val();
                 var end_date = $('#end_date').val();
                 var jurusan = $('#jurusan').val();
-                if (start_date != '' && end_date != '' ) {
+                if (start_date != '' && end_date != '') {
                     window.location.href = "{{ route('exportpdfAset') }}?start_date=" + start_date +
                         "&end_date=" + end_date + "&jurusan=" + jurusan;
                 } else {
@@ -167,7 +186,7 @@
                 var jurusan = $('#jurusan').val();
                 if (start_date != '' && end_date != '') {
                     window.location.href = "{{ route('exportexcelAset') }}?start_date=" + start_date +
-                        "&end_date=" + end_date;
+                        "&end_date=" + end_date + "&jurusan=" + jurusan;
                 } else {
                     alert('Both Date is required for export');
                 }

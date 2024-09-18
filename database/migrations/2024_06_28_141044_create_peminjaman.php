@@ -22,6 +22,8 @@ class CreatePeminjaman extends Migration
             $table->foreignId('nama_aset')->constrained('asets')->onDelete('cascade');
             $table->foreignId('penanggung_jawab')->constrained('users')->onDelete('cascade');
             $table->string('jumlah');
+            $table->string('kondisi_dipinjam');
+            $table->string('kondisi_dikembalikan')->nullable();
             $table->string('status');           
             $table->string('keterangan')->nullable();
             $table->timestamp('waktu_meminjam');

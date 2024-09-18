@@ -90,9 +90,12 @@
                 <th>Kelas</th>
                 <th>Nama Barang</th>
                 <th>Jumlah</th>
+                <th>Kondisi Dipinjam</th>
                 <th>Waktu Meminjam</th>
                 <th>Status</th>
                 <th>Waktu Pengembalian</th>
+                <th>Kondisi Dikembalikan</th>
+                <th style="width: 80px">Berita Acara</th>
                 <th>Keterangan</th>
             </tr>
         </thead>
@@ -105,10 +108,12 @@
                     <td>{{ $item->kelas }}</td>
                     <td>{{ $item->aset->nama_aset }}</td>
                     <td>{{ $item->jumlah }}</td>
+                    <td>{{ $item->kondisi_dipinjam }}</td>
                     <td>{{ $item->waktu_meminjam }}</td>
                     <td>{{ $item->status }}</td>
-
                     <td>{{ $item->waktu_pengembalian ? $item->waktu_pengembalian : 'Belum Dikembalikan' }}</td>
+                    <td>{{ $item->kondisi_dikembalikan ? $item->kondisi_dikembalikan : 'Belum Dikembalikan' }}</td>
+                    <td>{{ $item->berita_acara ? $item->berita_acara : 'Tidak Ada Berita Acara' }}</td>
                     <td>{{ $item->keterangan }}</td>
                 </tr>
             @endforeach

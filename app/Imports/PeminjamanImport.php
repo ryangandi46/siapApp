@@ -16,16 +16,19 @@ class PeminjamanImport implements ToModel
     {
         return new Peminjaman([
             'nama_peminjam' => $row[0] ?? null,
-            'kelas' => $row[1] ?? null,
-            'penanggung_jawab' => $row[2] ?? null,            
+            'penanggung_jawab' => $row[1] ?? null,            
+            'kelas' => $row[2] ?? null,
             'nama_aset' => $row[3] ?? null,
             'jumlah' => $row[4] ?? null,
-            'status' => $row[5] ?? null,
-            'keterangan' => $row[6] ?? null,
-            'waktu_meminjam' => $row[7] ?? null,
-            'waktu_pengembalian' => $row[8] ?? null,
-            'created_at' => $row[9] ?? now(),
-            'updated_at' => $row[10] ?? now(),
+            'kondisi_dipinjam' => $row[5] ?? null,
+            'status' => $row[6] ?? null,
+            'keterangan' => $row[7] ?? null,
+            'waktu_meminjam' => $row[8] ?? null,
+            'waktu_pengembalian' => $row[9] ?? null,
+            'kondisi_dikembalikan' => $row[10] ?? null,
+            'berita_acara' => $row[11] ?? null,
+            'created_at' => $row[12] ?? now(),
+            'updated_at' => $row[13] ?? now(),
         ]);
         // dd($data);
     }

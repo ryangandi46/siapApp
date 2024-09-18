@@ -22,6 +22,8 @@ class PeminjamanFactory extends Factory
             'nama_aset' => Aset::factory(), // Example assets
             'jumlah' => $this->faker->randomDigit,
             'status' => $this->faker->randomElement(['Dipinjam', 'Dikembalikan']),
+            'kondisi_dipinjam' => $this->faker->randomElement(['Bagus', 'Rusak Sedang', 'Rusak Berat']),
+            'kondisi_dikembalikan' => $this->faker->randomElement(['Bagus', 'Rusak Sedang', 'Rusak Berat']),
             // 'waktu_meminjam' => $this->faker->dateTimeBetween('-1 month', 'now'),
             // 'waktu_pengembalian' => $this->faker->dateTimeBetween('now', '+1 month'), // Assuming return date is after borrow date
             'waktu_meminjam' => $this->faker->dateTimeBetween('-1 month', 'now')->format('Y-m-d H:i'),

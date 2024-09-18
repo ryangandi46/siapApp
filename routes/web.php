@@ -55,6 +55,9 @@ Route::post('/pengembalianAset', [PeminjamanController::class, 'pengembalianAset
 Route::get('/laporanPeminjaman', [LaporanController::class, 'laporanPeminjaman'])->name('laporanPeminjaman')->middleware('can:action');
 Route::get('/downloadTemplateAset', [AsetController::class, 'downloadTemplateAset'])->name('downloadTemplateAset')->middleware('can:action');
 Route::get('/downloadTemplatePeminjaman', [PeminjamanController::class, 'downloadTemplatePeminjaman'])->name('downloadTemplatePeminjaman')->middleware('can:action');
+Route::get('/downloadTemplateBeritaAcara', [PeminjamanController::class, 'downloadTemplateBeritaAcara'])->name('downloadTemplateBeritaAcara')->middleware('can:action');
+Route::get('/download/berita_acara/{filename}', [PeminjamanController::class, 'downloadBeritaAcara'])->name('peminjaman.downloadBeritaAcara')->middleware('can:action');
+// Route::get('/downloadBeritaAcara', [PeminjamanController::class, 'downloadBeritaAcara'])->name('downloadBeritaAcara')->middleware('can:action');
 
 // Route::get('/peminjaman/create', function () {
 //     return view('peminjam.create');

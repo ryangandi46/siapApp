@@ -4,6 +4,25 @@
 
 @section('content')
     <div class="card shadow mb-4">
+        {{-- Success Message --}}
+        @if (session('success'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ session('success') }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        @endif
+
+        <!-- Alert Error -->
+        @if (session('error'))
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                {{ session('error') }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        @endif
         <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-primary">Inventaris Aset</h6>
         </div>
@@ -45,7 +64,7 @@
                                                 Template</a>
                                         </div>
                                         <br>
-                                        <input type="file" name="file" required>
+                                        <input type="file" name="file" accept=".xlsx, .xls, .csv" required>
                                     </div>
                                 </div>
                                 <div class="modal-footer">

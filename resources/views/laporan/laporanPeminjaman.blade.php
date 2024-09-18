@@ -4,6 +4,25 @@
 
 @section('content')
     <div class="card shadow mb-4">
+        {{-- Success Message --}}
+        @if (session('success'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ session('success') }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        @endif
+
+        <!-- Alert Error -->
+        @if (session('error'))
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                {{ session('error') }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        @endif
         <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-primary">Inventaris peminjam</h6>
         </div>
@@ -46,9 +65,12 @@
                             <th>kelas</th>
                             <th>Nama Barang</th>
                             <th>jumlah</th>
+                            <th>Kondisi Dipinjam</th>
                             <th>waktu Meminjam</th>
                             <th>status</th>
                             <th>waktu Pengembalian</th>
+                            <th>Kondisi Dikembalikan</th>
+                            <th>Berita Acara</th>
                             <th>keterangan</th>
                         </tr>
                     </thead>
@@ -99,6 +121,10 @@
                             name: 'jumlah'
                         },
                         {
+                            data: 'kondisi_dipinjam',
+                            name: 'kondisi_dipinjam'
+                        },
+                        {
                             data: 'waktu_meminjam',
                             name: 'waktu_meminjam'
                         },
@@ -112,6 +138,29 @@
                             render: function(data, type, row) {
                                 if (data == null) {
                                     return `<p class="text-danger">Belum DiKembalikan</p>`;
+                                } else {
+                                    return data;
+                                }
+                            }
+                        },
+                        {
+                            data: 'kondisi_dikembalikan',
+                            name: 'kondisi_dikembalikan',
+                            render: function(data, type, row) {
+                                if (data == null) {
+                                    return `<p class="text-danger">Belum Dikembalikan</p>`;
+                                } else {
+                                    return data;
+                                }
+                            }
+                        },
+                        {
+                            data: 'berita_acara',
+                            name: 'berita_acara',
+                            render: function(data, type, row) {
+                                if (data == null) {
+                                    return `<p class="text-danger">Tidak Ada Berita Acara</p>`;
+                                    // return `<a href="/storage/berita_acara/${data}" target="_blank">Download Berita Acara</a>`;                                   
                                 } else {
                                     return data;
                                 }

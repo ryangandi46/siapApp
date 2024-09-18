@@ -28,13 +28,16 @@ class LaporanExportPeminjaman implements FromCollection, WithHeadings
             return [
                 'ID Peminjaman' => $item->id,
                 'nama_peminjam' => $item->nama_peminjam,
-                'penanggung_jawab' => $item->user->penanggung_jawab,
+                'penanggung_jawab' => $item->penanggung_jawab,
                 'kelas' => $item->kelas,
                 'nama_aset' => $item->aset->nama_aset,
                 'jumlah' => $item->jumlah,
+                'kondisi_dipinjam' => $item->kondisi_dipinjam,
                 'waktu_meminjam' => $item->waktu_meminjam,
                 'status' => $item->status,
-                'waktu_pengembalian' => $item->waktu_pengembalian,
+                'waktu_pengembalian' => $item->waktu_pengembalian ? $item->waktu_pengembalian : 'Belum Dikembalikan',
+                'kondisi_dikembalikan' => $item->kondisi_dikembalikan ? $item->kondisi_dikembalikan : 'Belum Dikembalikan',
+                'berita_acara' => $item->berita_acara ? $item->berita_acara : 'Tidak Ada Berita Acara',
                 'keterangan' => $item->keterangan,
             ];
         });
@@ -49,9 +52,12 @@ class LaporanExportPeminjaman implements FromCollection, WithHeadings
             'Kelas',
             'Nama Barang',
             'Jumlah',
+            'kondisi_dipinjam',
             'Waktu Meminjam',
             'Status',
             'Waktu Pengembalian',
+            'kondisi_dikembalikan',
+            'berita_acara',
             'Keterangan',
         ];
     }
